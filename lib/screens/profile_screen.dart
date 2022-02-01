@@ -61,7 +61,6 @@ class ProfileScreen extends StatelessWidget {
                               },
                               child: Image.asset(
                                 Data.userData[index]['image']!,
-                                fit: BoxFit.scaleDown,
                                 height: 100,
                               ),
                             ),
