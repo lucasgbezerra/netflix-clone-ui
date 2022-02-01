@@ -8,10 +8,10 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColor.background,
       appBar: AppBar(
+          elevation: 0,
           backgroundColor: Colors.transparent,
           title: Image.asset(
             "assets/logos/netflix_logo_full.png",
@@ -21,7 +21,6 @@ class ProfileScreen extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
-                print((screenSize.width - 120) / 2);
               },
               icon: const Icon(
                 Icons.edit,
@@ -41,45 +40,48 @@ class ProfileScreen extends StatelessWidget {
             Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.symmetric(horizontal: 50),
-              child: Flexible(
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  physics:const  NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10),
-                  itemCount: Data.userData.length + 1,
-                  itemBuilder: (BuildContext context, int index) {
-                    if (index < Data.userData.length) {
-                      return Stack(
-                        children: [
-                          Center(
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(5),
-                              child: GestureDetector(
-                                onTap: (){
-                                  // Entrar no perfil
-                                },
-                                child: Image.asset(
-                                  Data.userData[index]['image']!,
-                                  fit: BoxFit.scaleDown,
-                                  height: 100,
-                                ),
+              child: GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10),
+                itemCount: Data.userData.length + 1,
+                itemBuilder: (BuildContext context, int index) {
+                  if (index < Data.userData.length) {
+                    return Stack(
+                      children: [
+                        Center(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(5),
+                            child: GestureDetector(
+                              onTap: () {
+                                // Entrar no perfil
+                              },
+                              child: Image.asset(
+                                Data.userData[index]['image']!,
+                                fit: BoxFit.scaleDown,
+                                height: 100,
                               ),
                             ),
                           ),
-                          Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Text(
-                              Data.userData[index]['username']!,
-                              style: AppTextStyles.headerText,
-                            ),
-                          )
-                        ],
-                      );
-                    } else {
-                      return Stack(
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Text(
+                            Data.userData[index]['username']!,
+                            style: AppTextStyles.headerText,
+                          ),
+                        )
+                      ],
+                    );
+                  } else {
+                    return GestureDetector(
+                      onTap: (){
+                        // Add Perfil
+                      },
+                      child: Stack(
                         children: [
                           const Center(
                             child: Icon(
@@ -96,10 +98,10 @@ class ProfileScreen extends StatelessWidget {
                             ),
                           )
                         ],
-                      );
-                    }
-                  },
-                ),
+                      ),
+                    );
+                  }
+                },
               ),
             ),
           ],
