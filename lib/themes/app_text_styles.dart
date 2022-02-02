@@ -3,16 +3,27 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AppTextStyles {
   static final subTitleText = GoogleFonts.roboto(
-    fontSize: 18,
-    fontWeight: FontWeight.w400,
-    color: Colors.white,
-    letterSpacing: 1
-  );
+      fontSize: 18,
+      fontWeight: FontWeight.w400,
+      color: Colors.white,
+      letterSpacing: 1);
 
   static final headerText = GoogleFonts.roboto(
     fontSize: 12,
     fontWeight: FontWeight.w500,
     color: Colors.white,
+  );
+
+  static final categoryHomeText = GoogleFonts.roboto(
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    color: Colors.white,
+  );
+
+  static final buttonHomeText = GoogleFonts.roboto(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: const Color(0xFF000000),
   );
 
   static final userNameText = GoogleFonts.roboto(
