@@ -52,7 +52,7 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       extendBodyBehindAppBar: true,
-      body: Column(
+      body: ListView(
         children: [
           Image.asset(
             "assets/posters/dont_look_up_poster.jpg",
@@ -118,7 +118,7 @@ class HomeScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.play_arrow,
                         color: AppColor.background,
                       ),
@@ -149,6 +149,7 @@ class HomeScreen extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(10, 30, 0, 10),
             alignment: Alignment.centerLeft,
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -157,18 +158,36 @@ class HomeScreen extends StatelessWidget {
                   style: AppTextStyles.listTitleText,
                   textAlign: TextAlign.left,
                 ),
-                ListView.separated(
+                SizedBox(
+                  height: 218,
+                  child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      return Container(
-                        height: 50,
-                        width: 20,
-                        color: Colors.red,
+                      return GestureDetector(
+                        onTap: (){
+                          //TODO: Adicionar navegador para pagina do filme
+                          // Entrar na pagina do filme
+                        },
+                        child: Container(
+                          height: 210,
+                          width: 140,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                              image: AssetImage(
+                                Data.imagesMovies[index],
+                              ),
+                            ),
+                          ),
+                        ),
                       );
                     },
-                    separatorBuilder: (BuildContext context, int index) =>
-                        Divider(),
-                    itemCount: 5)
+                    separatorBuilder: (context, index) => Container(
+                      width: 8,
+                    ),
+                    itemCount: Data.imagesMovies.length,
+                  ),
+                )
               ],
             ),
           ),
