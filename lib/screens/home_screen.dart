@@ -52,144 +52,180 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       extendBodyBehindAppBar: true,
-      body: ListView(
-        children: [
-          Image.asset(
-            "assets/posters/dont_look_up_poster.jpg",
-            opacity: const AlwaysStoppedAnimation<double>(0.9),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Image.asset(
+              "assets/posters/dont_look_up_poster.jpg",
+              opacity: const AlwaysStoppedAnimation<double>(0.9),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "Comedy",
+                    style: AppTextStyles.categoryHomeText,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Container(
+                      height: 3,
+                      width: 3,
+                      decoration: const BoxDecoration(
+                          color: AppColor.terciary, shape: BoxShape.circle),
+                    ),
+                  ),
+                  Text("Drama", style: AppTextStyles.categoryHomeText),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: Container(
+                      height: 3,
+                      width: 3,
+                      decoration: const BoxDecoration(
+                          color: AppColor.terciary, shape: BoxShape.circle),
+                    ),
+                  ),
+                  Text("Sci-Fi", style: AppTextStyles.categoryHomeText)
+                ],
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  "Comedy",
-                  style: AppTextStyles.categoryHomeText,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Container(
-                    height: 3,
-                    width: 3,
-                    decoration: const BoxDecoration(
-                        color: AppColor.terciary, shape: BoxShape.circle),
-                  ),
-                ),
-                Text("Drama", style: AppTextStyles.categoryHomeText),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Container(
-                    height: 3,
-                    width: 3,
-                    decoration: const BoxDecoration(
-                        color: AppColor.terciary, shape: BoxShape.circle),
-                  ),
-                ),
-                Text("Sci-Fi", style: AppTextStyles.categoryHomeText)
-              ],
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Column(
-                children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.add),
-                    color: AppColor.secundary,
-                  ),
-                  Text(
-                    "My List",
-                    style: AppTextStyles.userNameText,
-                  )
-                ],
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                  backgroundColor: AppColor.secundary,
-                ),
-                onPressed: () {},
-                child: SizedBox(
-                  width: screenSize.width / 5,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      const Icon(
-                        Icons.play_arrow,
-                        color: AppColor.background,
-                      ),
-                      Text(
-                        "Play",
-                        style: AppTextStyles.buttonHomeText,
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Column(
-                children: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.info_outline),
-                    color: AppColor.secundary,
-                  ),
-                  Text(
-                    "Info",
-                    style: AppTextStyles.userNameText,
-                  )
-                ],
-              )
-            ],
-          ),
-          Container(
-            padding: const EdgeInsets.fromLTRB(10, 30, 0, 10),
-            alignment: Alignment.centerLeft,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "MyList",
-                  style: AppTextStyles.listTitleText,
-                  textAlign: TextAlign.left,
-                ),
-                SizedBox(
-                  height: 218,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: (){
-                          //TODO: Adicionar navegador para pagina do filme
-                          // Entrar na pagina do filme
-                        },
-                        child: Container(
-                          height: 210,
-                          width: 140,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              image: AssetImage(
-                                Data.imagesMovies[index],
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                    separatorBuilder: (context, index) => Container(
-                      width: 8,
+                Column(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.add),
+                      color: AppColor.secundary,
                     ),
-                    itemCount: Data.imagesMovies.length,
+                    Text(
+                      "My List",
+                      style: AppTextStyles.userNameText,
+                    )
+                  ],
+                ),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: AppColor.secundary,
                   ),
+                  onPressed: () {},
+                  child: SizedBox(
+                    width: screenSize.width / 5,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        const Icon(
+                          Icons.play_arrow,
+                          color: AppColor.background,
+                        ),
+                        Text(
+                          "Play",
+                          style: AppTextStyles.buttonHomeText,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Column(
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.info_outline),
+                      color: AppColor.secundary,
+                    ),
+                    Text(
+                      "Info",
+                      style: AppTextStyles.userNameText,
+                    )
+                  ],
                 )
               ],
             ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(10, 30, 0, 10),
+              alignment: Alignment.centerLeft,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "MyList",
+                    style: AppTextStyles.listTitleText,
+                    textAlign: TextAlign.left,
+                  ),
+                  SizedBox(
+                    height: 218,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            //TODO: Adicionar navegador para pagina do filme
+                            // Entrar na pagina do filme
+                          },
+                          child: Container(
+                            height: 210,
+                            width: 140,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                image: AssetImage(
+                                  Data.imagesMovies[index],
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) => Container(
+                        width: 8,
+                      ),
+                      itemCount: Data.imagesMovies.length,
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (index){
+          //Troca de aba
+        },
+        backgroundColor: AppColor.bottomNavBarBackground,
+        type: BottomNavigationBarType.fixed,
+        currentIndex: 0,
+        selectedItemColor: AppColor.secundary,
+        unselectedItemColor: AppColor.terciary,
+        selectedFontSize: 11,
+        unselectedFontSize: 11,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.sports_esports_outlined),
+            label: "Games",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.video_library_outlined),
+            label: "Coming Soon",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.sentiment_very_satisfied_outlined),
+            label: "Fast Laughs",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.download_for_offline_outlined),
+            label: "Downloads",
           ),
         ],
       ),
