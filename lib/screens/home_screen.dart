@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
+import 'package:netflix_clone_ui/provider/data.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -143,7 +144,34 @@ class HomeScreen extends StatelessWidget {
                 ],
               )
             ],
-          )
+          ),
+          Container(
+            padding: const EdgeInsets.fromLTRB(10, 30, 0, 10),
+            alignment: Alignment.centerLeft,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "MyList",
+                  style: AppTextStyles.listTitleText,
+                  textAlign: TextAlign.left,
+                ),
+                ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        height: 50,
+                        width: 20,
+                        color: Colors.red,
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) =>
+                        Divider(),
+                    itemCount: 5)
+              ],
+            ),
+          ),
         ],
       ),
     );
