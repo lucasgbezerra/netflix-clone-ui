@@ -13,8 +13,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: AppColor.background,
-      // resizeToAvoidBottomInset: true,
+      backgroundColor: AppColor.background,     
       body: Stack(
         children: [
           ListView(
@@ -183,38 +182,5 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class PersistentHeader extends SliverPersistentHeaderDelegate {
-  final Widget? widget;
-
-  PersistentHeader({this.widget});
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      color: Colors.transparent,
-      width: double.infinity,
-      height: 56.0,
-      child: Card(
-        margin: EdgeInsets.all(0),
-        color: Colors.transparent,
-        elevation: 5.0,
-        child: Center(child: widget),
-      ),
-    );
-  }
-
-  @override
-  double get maxExtent => 56.0;
-
-  @override
-  double get minExtent => 56.0;
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
-    return true;
   }
 }
