@@ -69,7 +69,7 @@ class _RootScreenState extends State<RootScreen> {
             _currentIndexPage = index;
           });
         },
-       currentIndexPage: _currentIndexPage,
+        currentIndexPage: _currentIndexPage,
       ),
     );
   }

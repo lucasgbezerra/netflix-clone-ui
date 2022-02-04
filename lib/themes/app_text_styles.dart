@@ -57,4 +57,9 @@ class AppTextStyles {
     fontWeight: FontWeight.w500,
     color: const Color(0xFF757575),
   );
+  static final movieMinutesText = GoogleFonts.roboto(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: Colors.white,
+  );
 }

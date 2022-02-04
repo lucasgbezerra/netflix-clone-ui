@@ -5,6 +5,7 @@ import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 import 'package:netflix_clone_ui/widgets/appBar_home.dart';
 import 'package:netflix_clone_ui/widgets/bottom_appBar_home.dart';
 import 'package:netflix_clone_ui/widgets/category_list_banner.dart';
+import 'package:netflix_clone_ui/widgets/movie_list.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -90,51 +91,17 @@ class HomeScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(10, 30, 0, 10),
-                  alignment: Alignment.centerLeft,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "MyList",
-                        style: AppTextStyles.listTitleText,
-                        textAlign: TextAlign.left,
-                      ),
-                      SizedBox(
-                        height: 218,
-                        child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                //TODO: Adicionar navegador para pagina do filme
-                                // Entrar na pagina do filme
-                              },
-                              child: Container(
-                                height: 210,
-                                width: 140,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                      Data.imagesMovies[index],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                          separatorBuilder: (context, index) => Container(
-                            width: 8,
-                          ),
-                          itemCount: Data.imagesMovies.length,
-                        ),
-                      )
-                    ],
-                  ),
+                MovieList(
+                  title: "My List",
+                  height: 210,
+                  width: 140,
+                  movies: Data.imagesMovies,
+                ),
+                MovieList(
+                  title: "Only on Netflix",
+                  height: 300,
+                  width: 200,
+                  movies: Data.imagesMovies,
                 ),
               ],
             ),
