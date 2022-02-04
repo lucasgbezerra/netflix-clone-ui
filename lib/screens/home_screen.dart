@@ -14,11 +14,10 @@ class HomeScreen extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColor.background,
+      // resizeToAvoidBottomInset: true,
       body: Stack(
         children: [
-          //App bar
-
-          Column(
+          ListView(
             children: [
               Container(
                 height: screenSize.height * 0.66,
@@ -44,6 +43,99 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               CategoryListBanner(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      IconButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () {},
+                        icon: const Icon(Icons.add),
+                        color: AppColor.secundary,
+                      ),
+                      Text(
+                        "My List",
+                        style: AppTextStyles.userNameText,
+                      )
+                    ],
+                  ),
+                  ElevatedButton.icon(
+                    style: TextButton.styleFrom(
+                      backgroundColor: AppColor.secundary,
+                    ),
+                    onPressed: () {},
+                    label: Text(
+                      "Play",
+                      style: AppTextStyles.buttonHomeText,
+                    ),
+                    icon: Icon(
+                      Icons.play_arrow,
+                      color: AppColor.background,
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.info_outline),
+                        color: AppColor.secundary,
+                      ),
+                      Text(
+                        "Info",
+                        style: AppTextStyles.userNameText,
+                      )
+                    ],
+                  )
+                ],
+              ),
+              Container(
+                padding: const EdgeInsets.fromLTRB(10, 30, 0, 10),
+                alignment: Alignment.centerLeft,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "MyList",
+                      style: AppTextStyles.listTitleText,
+                      textAlign: TextAlign.left,
+                    ),
+                    SizedBox(
+                      height: 218,
+                      child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              //TODO: Adicionar navegador para pagina do filme
+                              // Entrar na pagina do filme
+                            },
+                            child: Container(
+                              height: 210,
+                              width: 140,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                    Data.imagesMovies[index],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                        separatorBuilder: (context, index) => Container(
+                          width: 8,
+                        ),
+                        itemCount: Data.imagesMovies.length,
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
           SafeArea(
