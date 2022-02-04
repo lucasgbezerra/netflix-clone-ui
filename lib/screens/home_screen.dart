@@ -12,9 +12,10 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColor.background,
       appBar: AppBar(
+        
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: Padding(
+        leading: Container(
           padding: const EdgeInsets.all(10),
           child: Image.asset(
             "assets/logos/netflix_logo.png",
@@ -43,8 +44,7 @@ class HomeScreen extends StatelessWidget {
             icon: ClipRRect(
               child: Image.asset(
                 "assets/avatars/profile_avatar_1.jpg",
-                width: 30,
-                height: 30,
+             
               ),
               borderRadius: BorderRadius.circular(5),
             ),
