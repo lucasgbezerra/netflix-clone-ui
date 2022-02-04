@@ -3,6 +3,7 @@ import 'package:netflix_clone_ui/screens/home_screen.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 import 'package:netflix_clone_ui/provider/data.dart';
+import 'package:netflix_clone_ui/widgets/bottom_navBar.dart';
 import 'package:netflix_clone_ui/widgets/category_list_banner.dart';
 
 class RootScreen extends StatefulWidget {
@@ -60,7 +61,7 @@ class _RootScreenState extends State<RootScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: BottomNavBar(
         onTap: (index) {
           //Troca de aba
           _pageController.jumpToPage(index);
@@ -68,35 +69,7 @@ class _RootScreenState extends State<RootScreen> {
             _currentIndexPage = index;
           });
         },
-        backgroundColor: AppColor.bottomNavBarBackground,
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _currentIndexPage,
-        selectedItemColor: AppColor.secundary,
-        unselectedItemColor: AppColor.terciary,
-        selectedFontSize: 11,
-        unselectedFontSize: 11,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Root",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.sports_esports_outlined),
-            label: "Games",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.video_library_outlined),
-            label: "Coming Soon",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.sentiment_very_satisfied_outlined),
-            label: "Fast Laughs",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.download_for_offline_outlined),
-            label: "Downloads",
-          ),
-        ],
+       currentIndexPage: _currentIndexPage,
       ),
     );
   }
