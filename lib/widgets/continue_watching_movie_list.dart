@@ -36,7 +36,7 @@ class ContinueWatchingMovieList extends StatelessWidget {
                   child: Column(
                     children: [
                       InkWell(
-                        onTap: (){
+                        onTap: () {
                           //TODO: Navegar para pagina do filme
                         },
                         child: Container(
@@ -56,10 +56,21 @@ class ContinueWatchingMovieList extends StatelessWidget {
                             child: Stack(
                               children: [
                                 Center(
-                                  child: Icon(
-                                    Icons.play_circle_outline,
-                                    color: AppColor.secundary,
-                                    size: 80,
+                                  child: Container(
+                                    height: 60,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.black.withOpacity(0.5),
+                                    ),
+                                  ),
+                                ),
+                                Center(
+                                  child: Container(
+                                    child: Icon(
+                                      Icons.play_circle_outline,
+                                      color: AppColor.secundary,
+                                      size: 80,
+                                    ),
                                   ),
                                 ),
                                 Align(
@@ -105,7 +116,7 @@ class ContinueWatchingMovieList extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             GestureDetector(
-                              onTap: (){
+                              onTap: () {
                                 //TODO: Mostrar Informações
                               },
                               child: Icon(
@@ -114,7 +125,7 @@ class ContinueWatchingMovieList extends StatelessWidget {
                               ),
                             ),
                             GestureDetector(
-                              onTap: (){
+                              onTap: () {
                                 // TODO: Mostra opções
                               },
                               child: Icon(
