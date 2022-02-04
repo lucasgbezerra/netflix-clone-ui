@@ -4,6 +4,7 @@ import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 import 'package:netflix_clone_ui/provider/data.dart';
 import 'package:netflix_clone_ui/widgets/appBar_home.dart';
 import 'package:netflix_clone_ui/widgets/bottom_appBar_home.dart';
+import 'package:netflix_clone_ui/widgets/category_list_banner.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -13,39 +14,37 @@ class HomeScreen extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColor.background,
-      extendBodyBehindAppBar: true,
       body: Stack(
         children: [
           //App bar
 
-          Container(
-            child: Column(
-              children: [
-                Container(
-                  height: screenSize.height * 0.7,
-                  width: screenSize.width,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(
-                          "assets/posters/dont_look_up_poster.jpg",
-                        ),
-                        fit: BoxFit.cover),
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.black.withOpacity(0.3),
-                          AppColor.background.withOpacity(0.8)
-                        ],
+          Column(
+            children: [
+              Container(
+                height: screenSize.height * 0.66,
+                width: screenSize.width,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(
+                        "assets/posters/dont_look_up_poster.jpg",
                       ),
+                      fit: BoxFit.cover),
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        AppColor.background.withOpacity(0.3),
+                        AppColor.background.withOpacity(0.8)
+                      ],
                     ),
                   ),
-                )
-              ],
-            ),
+                ),
+              ),
+              CategoryListBanner(),
+            ],
           ),
           SafeArea(
             child: Column(
