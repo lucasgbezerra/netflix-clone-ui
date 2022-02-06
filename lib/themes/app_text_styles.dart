@@ -13,7 +13,7 @@ class AppTextStyles {
     fontWeight: FontWeight.w500,
     color: Colors.white,
   );
-    static final tabBarButtonsText = GoogleFonts.roboto(
+  static final tabBarButtonsText = GoogleFonts.roboto(
     fontSize: 14,
     fontWeight: FontWeight.w400,
     color: Colors.white,
@@ -58,7 +58,7 @@ class AppTextStyles {
     color: const Color(0xFF757575),
   );
 
-    static final descriptionMovieTextModal = GoogleFonts.roboto(
+  static final descriptionMovieTextModal = GoogleFonts.roboto(
     fontSize: 12,
     fontWeight: FontWeight.w400,
     color: Colors.white,
@@ -66,6 +66,11 @@ class AppTextStyles {
   static final movieMinutesText = GoogleFonts.roboto(
     fontSize: 14,
     fontWeight: FontWeight.w500,
+    color: Colors.white,
+  );
+  static final infoModalButton = GoogleFonts.roboto(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
     color: Colors.white,
   );
 }
