@@ -57,6 +57,12 @@ class AppTextStyles {
     fontWeight: FontWeight.w500,
     color: const Color(0xFF757575),
   );
+
+    static final descriptionMovieTextModal = GoogleFonts.roboto(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: Colors.white,
+  );
   static final movieMinutesText = GoogleFonts.roboto(
     fontSize: 14,
     fontWeight: FontWeight.w500,

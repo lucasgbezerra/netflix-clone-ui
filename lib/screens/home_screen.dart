@@ -105,6 +105,18 @@ class HomeScreen extends StatelessWidget {
                   movies: Data.imagesMovies,
                 ),
                 ContinueWatchingMovieList(movies: Data.imagesMovies),
+                MovieList(
+                  title: "Trending Now",
+                  height: 210,
+                  width: 140,
+                  movies: Data.imagesMovies,
+                ),
+                MovieList(
+                  title: "TV Shows",
+                  height: 210,
+                  width: 140,
+                  movies: Data.imagesMovies,
+                ),
               ],
             ),
             SafeArea(
