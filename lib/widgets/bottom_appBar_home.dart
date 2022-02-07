@@ -28,11 +28,7 @@ class BottomAppBarHome extends StatelessWidget {
         ),
         TextButton.icon(
           onPressed: () {
-            showModalBottomSheet(
-                context: context,
-                backgroundColor: Colors.black.withOpacity(0.9),
-                
-                builder: (context) => CategoryScreen());
+            Navigator.of(context).push(CategoryScreen());
           },
           icon: Text(
             "Categories",
