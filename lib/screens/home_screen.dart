@@ -51,10 +51,8 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     Column(
                       children: [
-                        IconButton(
-                          padding: EdgeInsets.zero,
-                          onPressed: () {},
-                          icon: const Icon(Icons.add),
+                        Icon(
+                          Icons.add,
                           color: AppColor.secundary,
                         ),
                         Text(
@@ -79,9 +77,8 @@ class HomeScreen extends StatelessWidget {
                     ),
                     Column(
                       children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.info_outline),
+                        Icon(
+                          Icons.info_outline,
                           color: AppColor.secundary,
                         ),
                         Text(

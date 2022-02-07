@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_clone_ui/provider/data.dart';
+import 'package:netflix_clone_ui/screens/category_screen.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 
@@ -25,7 +27,13 @@ class BottomAppBarHome extends StatelessWidget {
           ),
         ),
         TextButton.icon(
-          onPressed: () {},
+          onPressed: () {
+            showModalBottomSheet(
+                context: context,
+                backgroundColor: Colors.black.withOpacity(0.9),
+                
+                builder: (context) => CategoryScreen());
+          },
           icon: Text(
             "Categories",
             style: AppTextStyles.tabBarButtonsText,

@@ -12,4 +12,26 @@ class Data {
     'assets/posters/greys_anatomy_poster.jpg',
     'assets/posters/lucifer_poster.jpg',
   ];
+
+  static final List<String> categories = [
+    "Home",
+    "My List",
+    "Avaliable for Download",
+    "Action",
+    "Anime",
+    "Blockbusters",
+    "Brazillian",
+    "Children & Family",
+    "Comedies",
+    "Documentaries",
+    "Dramas",
+    "Fantasy",
+    "Horror",
+    "International",
+    "Music & Musicals",
+    "LGBTQ+",
+    "Reality",
+    "Romance",
+    "Sci-Fi",
+  ];
 }

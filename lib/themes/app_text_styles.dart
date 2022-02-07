@@ -73,4 +73,10 @@ class AppTextStyles {
     fontWeight: FontWeight.w400,
     color: Colors.white,
   );
+
+  static final categorytitleText   = GoogleFonts.roboto(
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+    color: Colors.white,
+  );
 }

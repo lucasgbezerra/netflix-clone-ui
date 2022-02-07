@@ -118,6 +118,7 @@ class ContinueWatchingMovieList extends StatelessWidget {
                             GestureDetector(
                               onTap: () {
                                 //TODO: Mostrar Informações
+                                
                               },
                               child: Icon(
                                 Icons.info_outline,
