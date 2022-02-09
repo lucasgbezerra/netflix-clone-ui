@@ -59,35 +59,26 @@ class SearchScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: Container(
-        padding: EdgeInsets.only(top: 5),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-                child: Text(
-                  "Top Searchs",
-                  style: GoogleFonts.roboto(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+      body: ListView.separated(
+        separatorBuilder: (context, index) => SizedBox(height: 5),
+        itemCount: Data.moviesAndTvShowInfo.length + 1,
+        itemBuilder: (context, index) {
+          if (index == 0) {
+            return Padding(
+              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+              child: Text(
+                "Top Searchs",
+                style: GoogleFonts.roboto(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
               ),
-              Expanded(
-                child: ListView.separated(
-                      
-                    separatorBuilder: (context, index) => SizedBox(height: 5),
-                    itemCount: Data.moviesAndTvShowInfo.length,
-                    itemBuilder: (context, index) {
-                      return SearchMovieTile(Data.moviesAndTvShowInfo[index]);
-                    },
-                ),
-              ),
-            ],
-          ),
-        ),
+            );
+          }
+
+          return SearchMovieTile(Data.moviesAndTvShowInfo[index - 1]);
+        },
       ),
     );
   }

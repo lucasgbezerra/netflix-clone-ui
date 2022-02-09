@@ -13,6 +13,21 @@ class Data {
     'assets/posters/lucifer_poster.jpg',
   ];
 
+  static final List<Map<String, String>>moviesAndTvShowInfo = [
+    {'image': 'assets/posters/army_of_dead_poster.jpg', 'title': 'Army of Dead'},
+    {'image': 'assets/posters/django_poster.jpg', 'title': 'Django'},
+    {'image': 'assets/posters/dont_look_up_poster.jpg', 'title': 'Don\'t Look Up'},
+    {'image': 'assets/posters/greys_anatomy_poster.jpg', 'title': 'Grey\'s Anatomy'},
+    {'image': 'assets/posters/lucifer_poster.jpg', 'title': "Lucifer"},
+    {'image': 'assets/posters/in_from_the_cold.jpg', 'title': "In From the Cold"},
+    {'image': 'assets/posters/peaky_blinders_poster.jpg', 'title': "Peaky Blinders"},
+    {'image': 'assets/posters/red_notice_poster.jpg', 'title': "Red Notice"},
+    {'image': 'assets/posters/suits_poster.jpg', 'title': "Suits"},
+    {'image': 'assets/posters/the_unforgivable_poster.jpg', 'title': "The Unforgivable"},
+    {'image': 'assets/posters/twd_poster.jpg', 'title': "The Walking Dead"},
+
+  ];
+
   static final List<String> categories = [
     "Home",
     "My List",
