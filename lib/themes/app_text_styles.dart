@@ -74,9 +74,21 @@ class AppTextStyles {
     color: Colors.white,
   );
 
-  static final categorytitleText   = GoogleFonts.roboto(
+  static final categorytitleText = GoogleFonts.roboto(
     fontSize: 20,
     fontWeight: FontWeight.w400,
     color: Colors.white,
+  );
+
+  static final searchLabelText = GoogleFonts.roboto(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: Colors.white,
+  );
+
+  static final searchHintText = GoogleFonts.roboto(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: Colors.grey[300],
   );
 }

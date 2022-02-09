@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:netflix_clone_ui/screens/home_screen.dart';
 import 'package:netflix_clone_ui/screens/root_screen.dart';
+import 'package:netflix_clone_ui/screens/search_screen.dart';
 
 
 void main() {
@@ -14,10 +14,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Netflix Clone',
       theme: ThemeData(
-        primarySwatch: Colors.grey,
+        primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: const RootScreen(),
+      home: const SearchScreen(),
     );
   }
 }
