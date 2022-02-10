@@ -28,10 +28,13 @@ class SearchMovieTile extends StatelessWidget {
           Spacer(),
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
-            child: Icon(
-              Icons.play_circle_outline,
-              color: AppColor.secundary,
-              size: 30,
+            child: GestureDetector(
+              onTap: (){},
+              child: Icon(
+                Icons.play_circle_outline,
+                color: AppColor.secundary,
+                size: 30,
+              ),
             ),
           )
         ],
