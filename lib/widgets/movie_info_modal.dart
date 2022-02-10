@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
+import 'package:netflix_clone_ui/widgets/info_movie.dart';
 
 class MovieInfoModal extends StatelessWidget {
   final String poster;
@@ -45,34 +46,7 @@ class MovieInfoModal extends StatelessWidget {
                           style: AppTextStyles.titleMovieText,
                         ),
                       ),
-                      Wrap(
-                        spacing: 5,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        children: [
-                          Text(
-                            "2019",
-                            style: AppTextStyles.descriptionMovieText,
-                          ),
-                          Container(
-                            height: 20,
-                            width: 20,
-                            // Cor condizente com a classificação
-                            alignment: Alignment.center,
-                            color: Colors.black,
-                            child: Text(
-                              "18",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          Text(
-                            "5 Seasons",
-                            style: AppTextStyles.descriptionMovieText,
-                          ),
-                        ],
-                      ),
+                      InfoMovie(),
                       Container(
                         width: sizeScreen.width * 0.6,
                         padding: EdgeInsets.fromLTRB(0, 8, 10, 10),

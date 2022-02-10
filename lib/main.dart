@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_clone_ui/provider/data.dart';
 import 'package:netflix_clone_ui/screens/movie_screen.dart';
 import 'package:netflix_clone_ui/screens/root_screen.dart';
 import 'package:netflix_clone_ui/screens/search_screen.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: const MovieScreen(),
+      home: MovieScreen(Data.moviesAndTvShowInfo[0]),
     );
   }
 }

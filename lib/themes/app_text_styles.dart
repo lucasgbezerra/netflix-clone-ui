@@ -52,12 +52,16 @@ class AppTextStyles {
     fontWeight: FontWeight.bold,
     color: Colors.white,
   );
-  static final descriptionMovieText = GoogleFonts.roboto(
+  static final StarringMovieText = GoogleFonts.roboto(
     fontSize: 12,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w400,
     color: const Color(0xFF757575),
   );
-
+  static final descriptionMovieText = GoogleFonts.roboto(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: Colors.white,
+  );
   static final descriptionMovieTextModal = GoogleFonts.roboto(
     fontSize: 12,
     fontWeight: FontWeight.w400,
@@ -90,5 +94,16 @@ class AppTextStyles {
     fontSize: 12,
     fontWeight: FontWeight.w400,
     color: Colors.grey[300],
+  );
+
+  static final iconLightButtonText = GoogleFonts.roboto(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: const Color(0xFF000000),
+  );
+  static final iconDarkButtonText = GoogleFonts.roboto(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: const Color(0xFFFFFFFF),
   );
 }
