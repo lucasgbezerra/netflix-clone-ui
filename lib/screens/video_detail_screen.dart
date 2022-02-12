@@ -250,7 +250,9 @@ class _VideoDetailScreenState extends State<VideoDetailScreen>
                   ],
                 ),
                 Container(
-                  height: ((sizeScreen.width - 20) / 3) * 6 + 15,
+                  height: _controller.index == 0
+                      ? ((sizeScreen.width - 20) / 3) * 6 + 15
+                      : ((sizeScreen.width - 20) * (9 / 16) + 29)* 3 + 20,
                   padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
                   child: TabBarView(
                     physics: NeverScrollableScrollPhysics(),
@@ -277,9 +279,56 @@ class _VideoDetailScreenState extends State<VideoDetailScreen>
                           // return Container(color: Colors.grey,);
                         },
                       ),
-                      Container(
-                        height: 50,
-                        color: Colors.blue,
+                      // Trailer tab bar
+                      ListView.builder(
+                        padding: EdgeInsets.all(10),
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: 3,
+                        // separatorBuilder: (context, index)=>SizedBox(height: 10,),
+                        itemBuilder: (context, index) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Stack(
+                                children: [
+                                  Container(
+                                    height:
+                                        (sizeScreen.width - 20) * (9 / 16),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.red,
+                                    ),
+                                    // padding: EdgfeInsets.only(bottom: 10),
+                                  ),
+                                  // Botão play
+                                  // TODO: Transformar o botão de play em um widget
+                                  Positioned.fill(
+                                    child: Center(
+                                      // alignment: Alignment.center,
+                                      child: Icon(
+                                        Icons.play_circle_outline_outlined,
+                                        size: 50,
+                                        color: AppColor.secundary,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 5, bottom: 10),
+                                child: Text(
+                                  "Titulo trailer $index",
+                                  style: GoogleFonts.roboto(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
+                        },
                       ),
                     ],
                   ),

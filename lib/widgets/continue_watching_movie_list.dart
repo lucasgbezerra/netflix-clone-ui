@@ -55,6 +55,7 @@ class ContinueWatchingMovieList extends StatelessWidget {
                             ),
                             child: Stack(
                               children: [
+                                // TODO: Transformar o botão de play em um widget
                                 Center(
                                   child: Container(
                                     height: 60,
