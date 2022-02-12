@@ -269,7 +269,16 @@ class _VideoDetailScreenState extends State<VideoDetailScreen>
                         itemCount: 12,
                         itemBuilder: (context, index) {
                           return GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => VideoDetailScreen(
+                                    Data.moviesAndTvShowInfo[0],
+                                  ),
+                                ),
+                              );
+                            },
                             child: Image.asset(
                               Data.imagesVideos[index],
                               fit: BoxFit.fitHeight,
@@ -301,7 +310,7 @@ class _VideoDetailScreenState extends State<VideoDetailScreen>
                                   ),
                                   // Botão play
                                   // TODO: Transformar o botão de play em um widget
-                                
+
                                   Positioned.fill(
                                     child: Center(
                                       // alignment: Alignment.center,
@@ -314,7 +323,7 @@ class _VideoDetailScreenState extends State<VideoDetailScreen>
                                       ),
                                     ),
                                   ),
-                                    Positioned.fill(
+                                  Positioned.fill(
                                     child: Center(
                                       // alignment: Alignment.center,
                                       child: Icon(
@@ -353,25 +362,3 @@ class _VideoDetailScreenState extends State<VideoDetailScreen>
     );
   }
 }
-
-//  TabBarView(
-//                   children: [
-//                     Container(color: Colors.red,),
-//                     Container(color: Colors.blue,),
-//                   ],
-//                 ),
-
-// GridView.builder(
-//                         gridDelegate:
-//                             SliverGridDelegateWithFixedCrossAxisCount(
-//                           crossAxisCount: 3,
-//                           mainAxisSpacing: 5,
-//                           crossAxisSpacing: 5,
-//                         ),
-//                         itemBuilder: (context, index) {
-//                           return Image.asset(
-//                             Data.imagesVideos[index],
-//                             fit: BoxFit.cover,
-//                             height: (sizeScreen.width / 3) * 100 / 66,
-//                           );
-//                         }),

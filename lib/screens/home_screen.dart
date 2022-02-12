@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_clone_ui/provider/data.dart';
+import 'package:netflix_clone_ui/screens/video_detail_screen.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 import 'package:netflix_clone_ui/widgets/appBar_home.dart';
@@ -65,7 +66,9 @@ class HomeScreen extends StatelessWidget {
                       style: TextButton.styleFrom(
                         backgroundColor: AppColor.secundary,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        // Play video
+                      },
                       label: Text(
                         "Play",
                         style: AppTextStyles.buttonHomeText,
@@ -75,17 +78,29 @@ class HomeScreen extends StatelessWidget {
                         color: AppColor.background,
                       ),
                     ),
-                    Column(
-                      children: [
-                        Icon(
-                          Icons.info_outline,
-                          color: AppColor.secundary,
-                        ),
-                        Text(
-                          "Info",
-                          style: AppTextStyles.userNameText,
-                        )
-                      ],
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => VideoDetailScreen(
+                              Data.moviesAndTvShowInfo[0],
+                            ),
+                          ),
+                        );
+                      },
+                      child: Column(
+                        children: [
+                          Icon(
+                            Icons.info_outline,
+                            color: AppColor.secundary,
+                          ),
+                          Text(
+                            "Info",
+                            style: AppTextStyles.userNameText,
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),

@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: VideoDetailScreen(Data.moviesAndTvShowInfo[0]),
+      home: RootScreen(),
     );
   }
 }

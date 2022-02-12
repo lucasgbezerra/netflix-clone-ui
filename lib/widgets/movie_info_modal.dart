@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_clone_ui/provider/data.dart';
+import 'package:netflix_clone_ui/screens/video_detail_screen.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 import 'package:netflix_clone_ui/widgets/info_movie.dart';
@@ -81,9 +83,11 @@ class MovieInfoModal extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                       primary: Colors.white,
                       minimumSize: Size(sizeScreen.width * 0.4, 35)),
-                  onPressed: () {},
-                  icon: Icon(Icons.play_arrow),
-                  label: Text("Play"),
+                  icon: Icon(Icons.play_arrow, color: Colors.black,),
+                  label: Text("Play", style: AppTextStyles.iconLightButtonText,),
+                  onPressed: () {
+                    // Play Video
+                  },
                 ),
                 Column(
                   children: [
@@ -118,28 +122,40 @@ class MovieInfoModal extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 5.0),
-                  child: Icon(
-                    Icons.info_outline,
-                    color: AppColor.secundary,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => VideoDetailScreen(
+                      Data.moviesAndTvShowInfo[0],
+                    ),
                   ),
-                ),
-                Text("Episodes & Info", style: AppTextStyles.infoModalButton),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Icon(
-                        Icons.navigate_next,
-                        color: AppColor.secundary,
-                      )
-                    ],
+                );
+              },
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5.0),
+                    child: Icon(
+                      Icons.info_outline,
+                      color: AppColor.secundary,
+                    ),
                   ),
-                )
-              ],
+                  Text("Episodes & Info", style: AppTextStyles.infoModalButton),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Icon(
+                          Icons.navigate_next,
+                          color: AppColor.secundary,
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           )
         ],
