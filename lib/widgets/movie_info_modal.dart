@@ -53,7 +53,7 @@ class MovieInfoModal extends StatelessWidget {
                         width: sizeScreen.width * 0.6,
                         padding: EdgeInsets.fromLTRB(0, 8, 10, 10),
                         child: Text(
-                          "Texto com o resumo do filme.Texto com o resumo do filme. Texto com o resumo do filme. Texto com o resumo do filme.",
+                          "Text with movie synopsis. Text with movie synopsis. Text with movie synopsis. Text with movie synopsis.",
                           style: AppTextStyles.descriptionMovieTextModal,
                         ),
                       ),

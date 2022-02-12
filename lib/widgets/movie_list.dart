@@ -43,7 +43,7 @@ class MovieList extends StatelessWidget {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    // Entrar na pagina do filme
+                    // Abrir modal com informações do video
                     showModalBottomSheet(
                       context: context,
                       backgroundColor: AppColor.modalBackground,

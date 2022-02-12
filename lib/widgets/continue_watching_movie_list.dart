@@ -3,6 +3,7 @@ import 'package:netflix_clone_ui/provider/data.dart';
 import 'package:netflix_clone_ui/screens/video_detail_screen.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
+import 'package:netflix_clone_ui/widgets/options_modal_bottom_sheet.dart';
 
 class ContinueWatchingMovieList extends StatelessWidget {
   final List<String> movies;
@@ -137,6 +138,18 @@ class ContinueWatchingMovieList extends StatelessWidget {
                             GestureDetector(
                               onTap: () {
                                 // TODO: Mostra opções
+                                // Abrir modal com informações do video
+                                showModalBottomSheet(
+                                  context: context,
+                                  backgroundColor: AppColor.modalBackground,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                  )),
+                                  builder: (contex) =>
+                                      OptionsModalBottomSheet(),
+                                );
                               },
                               child: Icon(
                                 Icons.more_vert,
