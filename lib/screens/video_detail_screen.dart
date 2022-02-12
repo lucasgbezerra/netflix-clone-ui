@@ -252,7 +252,7 @@ class _VideoDetailScreenState extends State<VideoDetailScreen>
                 Container(
                   height: _controller.index == 0
                       ? ((sizeScreen.width - 20) / 3) * 6 + 15
-                      : ((sizeScreen.width - 20) * (9 / 16) + 29)* 3 + 20,
+                      : ((sizeScreen.width - 20) * (9 / 16) + 29) * 3 + 20,
                   padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
                   child: TabBarView(
                     physics: NeverScrollableScrollPhysics(),
@@ -292,8 +292,7 @@ class _VideoDetailScreenState extends State<VideoDetailScreen>
                               Stack(
                                 children: [
                                   Container(
-                                    height:
-                                        (sizeScreen.width - 20) * (9 / 16),
+                                    height: (sizeScreen.width - 20) * (9 / 16),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       color: Colors.red,
@@ -302,7 +301,20 @@ class _VideoDetailScreenState extends State<VideoDetailScreen>
                                   ),
                                   // Botão play
                                   // TODO: Transformar o botão de play em um widget
+                                
                                   Positioned.fill(
+                                    child: Center(
+                                      // alignment: Alignment.center,
+                                      child: Container(
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.black.withOpacity(0.5),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                    Positioned.fill(
                                     child: Center(
                                       // alignment: Alignment.center,
                                       child: Icon(
@@ -311,7 +323,7 @@ class _VideoDetailScreenState extends State<VideoDetailScreen>
                                         color: AppColor.secundary,
                                       ),
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                               Padding(
