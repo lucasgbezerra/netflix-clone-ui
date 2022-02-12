@@ -21,7 +21,7 @@ class _VideoDetailScreenState extends State<VideoDetailScreen>
   @override
   void initState() {
     super.initState();
-    _controller = TabController(length: 2, vsync: this);
+    _controller = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -245,47 +245,93 @@ class _VideoDetailScreenState extends State<VideoDetailScreen>
                   indicatorColor: AppColor.primary,
                   physics: NeverScrollableScrollPhysics(),
                   tabs: [
-                    Text("MORE LIKE THIS"),
-                    Text("TRAILER & MORE"),
+                    Text(
+                      "EPISODES",
+                      style: TextStyle(fontSize: 12),
+                    ),
+                    Text(
+                      "TRAILER & MORE",
+                      style: TextStyle(fontSize: 12),
+                    ),
+                    Text(
+                      "MORE LIKE THIS",
+                      style: TextStyle(fontSize: 12),
+                    ),
                   ],
                 ),
                 Container(
                   height: _controller.index == 0
-                      ? ((sizeScreen.width - 20) / 3) * 6 + 15
-                      : ((sizeScreen.width - 20) * (9 / 16) + 29) * 3 + 20,
+                      ? ((100 * 9 / 16) + 38 )* 8
+                      : _controller.index == 1
+                          ? ((sizeScreen.width - 20) / 3) * 6 + 15
+                          : ((sizeScreen.width - 20) * (9 / 16) + 29) * 3 + 20,
                   padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
                   child: TabBarView(
                     physics: NeverScrollableScrollPhysics(),
                     controller: _controller,
                     children: [
-                      GridView.builder(
+                      // EPISODES
+                      ListView.builder(
                         physics: NeverScrollableScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          mainAxisSpacing: 5,
-                          crossAxisSpacing: 5,
-                          mainAxisExtent: ((sizeScreen.width - 20) / 3) * 1.5,
-                        ),
-                        itemCount: 12,
+                        itemCount: 8,
                         itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => VideoDetailScreen(
-                                    Data.moviesAndTvShowInfo[0],
+                          return InkWell(
+                            onTap: () {},
+                            child: Container(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 8, right: 8),
+                                        child: Container(
+                                          height: 100 * 9 / 16,
+                                          width: 100,
+                                          color: Colors.red,
+                                        ),
+                                      ),
+                                      Text.rich(
+                                        TextSpan(
+                                          text: "$index. Episode $index\n",
+                                          style: GoogleFonts.roboto(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.white),
+                                          children: [
+                                            TextSpan(
+                                              text: "57m",
+                                              style: GoogleFonts.roboto(
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.grey),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      IconButton(
+                                        onPressed: () {},
+                                        icon: Icon(
+                                          Icons.download,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              );
-                            },
-                            child: Image.asset(
-                              Data.imagesVideos[index],
-                              fit: BoxFit.fitHeight,
-                              // height: (sizeScreen.width / 3) * 100 / 66,
+                                  Text(
+                                    "This space is to put the synopsis of the episode",
+                                    style: GoogleFonts.roboto(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.grey),
+                                  ),
+                                ],
+                              ),
                             ),
                           );
-                          // return Container(color: Colors.grey,);
                         },
                       ),
                       // Trailer tab bar
@@ -349,6 +395,36 @@ class _VideoDetailScreenState extends State<VideoDetailScreen>
                               )
                             ],
                           );
+                        },
+                      ),
+                      GridView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          mainAxisSpacing: 5,
+                          crossAxisSpacing: 5,
+                          mainAxisExtent: ((sizeScreen.width - 20) / 3) * 1.5,
+                        ),
+                        itemCount: 12,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => VideoDetailScreen(
+                                    Data.moviesAndTvShowInfo[0],
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Image.asset(
+                              Data.imagesVideos[index],
+                              fit: BoxFit.fitHeight,
+                              // height: (sizeScreen.width / 3) * 100 / 66,
+                            ),
+                          );
+                          // return Container(color: Colors.grey,);
                         },
                       ),
                     ],
