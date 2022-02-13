@@ -22,7 +22,7 @@ class CategoryScreen extends ModalRoute {
   bool get opaque => false;
 
   @override
-  Duration get transitionDuration => Duration(milliseconds: 50);
+  Duration get transitionDuration => const Duration(milliseconds: 50);
 
   @override
   Widget buildPage(BuildContext context, Animation<double> animation,

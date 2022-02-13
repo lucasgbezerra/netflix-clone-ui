@@ -48,27 +48,23 @@ class OptionsModalBottomSheet extends StatelessWidget {
                     icon: Icons.info_outline,
                     text: "Episodes & Infos",
                     onTap: () {
-                      print("object");
                     }),
                 OptionModal(
                   icon: Icons.download,
                   text: "Download Episode",
                   onTap: () {
-                      print("object1");
                   },
                 ),
                 OptionModal(
                   icon: Icons.thumb_up_alt,
                   text: "Rated",
                   onTap: () {
-                      print("object2");
                   },
                 ),
                 OptionModal(
                   icon: Icons.close,
                   text: "Remove From Row",
                   onTap: () {
-                      print("object3");
                   },
                 ),
               ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_clone_ui/screens/search_screen.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 
 class AppBarHome extends StatelessWidget {
@@ -17,18 +18,16 @@ class AppBarHome extends StatelessWidget {
         ),
         const Spacer(),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => SearchScreen(),
+              ),
+            );
+          },
           iconSize: 30,
           icon: const Icon(
             Icons.search,
-            color: AppColor.secundary,
-          ),
-        ),
-        IconButton(
-          onPressed: () {},
-          iconSize: 30,
-          icon: const Icon(
-            Icons.tune,
             color: AppColor.secundary,
           ),
         ),

@@ -16,7 +16,9 @@ class SearchScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColor.background,
         leading: BackButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
           color: AppColor.secundary,
         ),
         actions: [

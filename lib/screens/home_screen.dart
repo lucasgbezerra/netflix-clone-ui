@@ -6,8 +6,8 @@ import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 import 'package:netflix_clone_ui/widgets/appBar_home.dart';
 import 'package:netflix_clone_ui/widgets/bottom_appBar_home.dart';
 import 'package:netflix_clone_ui/widgets/category_list_banner.dart';
-import 'package:netflix_clone_ui/widgets/continue_watching_movie_list.dart';
-import 'package:netflix_clone_ui/widgets/movie_list.dart';
+import 'package:netflix_clone_ui/widgets/continue_watching_video_list.dart';
+import 'package:netflix_clone_ui/widgets/video_list.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
