@@ -4,6 +4,8 @@ import 'package:netflix_clone_ui/provider/data.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 import 'package:netflix_clone_ui/widgets/appBar_home.dart';
+import 'package:netflix_clone_ui/widgets/button_icon_text_vertical.dart';
+import 'package:netflix_clone_ui/widgets/button_icon_text_horizontal.dart';
 import 'package:netflix_clone_ui/widgets/info_video.dart';
 
 class VideoDetailScreen extends StatefulWidget {
@@ -86,35 +88,22 @@ class _VideoDetailScreenState extends State<VideoDetailScreen>
                         isMovie: true,
                       ),
                       SizedBox(height: 8),
-                      ElevatedButton.icon(
+                     
+                      ButtonIconTextHorizontal(
+                        text: "Play",
+                        icon: Icons.play_arrow,
                         onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                            primary: AppColor.secundary,
-                            minimumSize: Size(sizeScreen.width - 20, 50)),
-                        icon: Icon(
-                          Icons.play_arrow,
-                          color: Colors.black,
-                        ),
-                        label: Text(
-                          "Play",
-                          style: AppTextStyles.iconLightButtonText,
-                        ),
+                        size: Size(sizeScreen.width - 20, 50),
                       ),
                       SizedBox(height: 8),
-                      ElevatedButton.icon(
+                      ButtonIconTextHorizontal(
+                        text: "Download",
+                        icon: Icons.download,
                         onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                            primary: AppColor.bottomNavBarBackground,
-                            minimumSize: Size(sizeScreen.width - 20, 50)),
-                        icon: Icon(
-                          Icons.download,
-                          color: Colors.white,
-                        ),
-                        label: Text(
-                          "Download",
-                          style: AppTextStyles.iconDarkButtonText,
-                        ),
+                        size: Size(sizeScreen.width - 20, 50),
+                        isDark: true,
                       ),
+                     
                       SizedBox(height: 8),
                       Text(
                         "Text about the movie or TvShow. Text about the movie or TvShow. Text about the movie or TvShow.",
@@ -172,53 +161,25 @@ class _VideoDetailScreenState extends State<VideoDetailScreen>
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Column(
-                            children: [
-                              Icon(
-                                Icons.add,
-                                color: AppColor.secundary,
-                              ),
-                              Text(
-                                "My List",
-                                style: AppTextStyles.userNameText,
-                              )
-                            ],
+                          ButtonIconTextVertical(
+                            icon: Icons.add,
+                            text: "My List",
+                            onTap: () {},
                           ),
-                          Column(
-                            children: [
-                              Icon(
-                                Icons.thumb_up_alt_outlined,
-                                color: AppColor.secundary,
-                              ),
-                              Text(
-                                "Rate",
-                                style: AppTextStyles.userNameText,
-                              )
-                            ],
+                          ButtonIconTextVertical(
+                            icon: Icons.thumb_up_alt_outlined,
+                            text: "Rate",
+                            onTap: () {},
                           ),
-                          Column(
-                            children: [
-                              Icon(
-                                Icons.share,
-                                color: AppColor.secundary,
-                              ),
-                              Text(
-                                "Share",
-                                style: AppTextStyles.userNameText,
-                              )
-                            ],
+                          ButtonIconTextVertical(
+                            icon: Icons.share,
+                            text: "Share",
+                            onTap: () {},
                           ),
-                          Column(
-                            children: [
-                              Icon(
-                                Icons.download,
-                                color: AppColor.secundary,
-                              ),
-                              Text(
-                                "Download",
-                                style: AppTextStyles.userNameText,
-                              )
-                            ],
+                          ButtonIconTextVertical(
+                            icon: Icons.download,
+                            text: "Download",
+                            onTap: () {},
                           ),
                         ],
                       ),
@@ -261,7 +222,7 @@ class _VideoDetailScreenState extends State<VideoDetailScreen>
                 ),
                 Container(
                   height: _controller.index == 0
-                      ? ((100 * 9 / 16) + 38 )* 8
+                      ? ((100 * 9 / 16) + 38) * 8
                       : _controller.index == 1
                           ? ((sizeScreen.width - 20) / 3) * 6 + 15
                           : ((sizeScreen.width - 20) * (9 / 16) + 29) * 3 + 20,

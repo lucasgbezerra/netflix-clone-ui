@@ -3,7 +3,8 @@ import 'package:netflix_clone_ui/provider/data.dart';
 import 'package:netflix_clone_ui/screens/video_detail_screen.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
-import 'package:netflix_clone_ui/widgets/button_play.dart';
+import 'package:netflix_clone_ui/widgets/button_icon_text_vertical.dart';
+import 'package:netflix_clone_ui/widgets/button_icon_text_horizontal.dart';
 import 'package:netflix_clone_ui/widgets/info_video.dart';
 
 class MovieInfoModal extends StatelessWidget {
@@ -80,34 +81,22 @@ class MovieInfoModal extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ButtonPlay(
+                ButtonIconTextHorizontal(
+                  text: "Play",
+                  icon: Icons.play_arrow,
                   onPressed: () {},
                   size: Size(sizeScreen.width * 0.4, 35),
                 ),
-                Column(
-                  children: [
-                    Icon(
-                      Icons.download,
-                      color: AppColor.secundary,
-                    ),
-                    Text(
-                      "Download",
-                      style: AppTextStyles.descriptionMovieText,
-                    )
-                  ],
+                ButtonIconTextVertical(
+                  icon: Icons.download,
+                  text: "Download",
+                  onTap: () {},
                 ),
-                Column(
-                  children: [
-                    Icon(
-                      Icons.play_arrow_outlined,
-                      color: AppColor.secundary,
-                    ),
-                    Text(
-                      "Preview",
-                      style: AppTextStyles.descriptionMovieText,
-                    )
-                  ],
-                )
+                ButtonIconTextVertical(
+                  icon: Icons.play_arrow_outlined,
+                  text: "Preview",
+                  onTap: () {},
+                ),
               ],
             ),
           ),

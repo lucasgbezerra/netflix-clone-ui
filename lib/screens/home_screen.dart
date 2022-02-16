@@ -5,7 +5,8 @@ import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 import 'package:netflix_clone_ui/widgets/appBar_home.dart';
 import 'package:netflix_clone_ui/widgets/bottom_appBar_home.dart';
-import 'package:netflix_clone_ui/widgets/button_play.dart';
+import 'package:netflix_clone_ui/widgets/button_icon_text_vertical.dart';
+import 'package:netflix_clone_ui/widgets/button_icon_text_horizontal.dart';
 import 'package:netflix_clone_ui/widgets/category_list_banner.dart';
 import 'package:netflix_clone_ui/widgets/continue_watching_video_list.dart';
 import 'package:netflix_clone_ui/widgets/video_list.dart';
@@ -51,20 +52,20 @@ class HomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Column(
-                      children: [
-                        Icon(
-                          Icons.add,
-                          color: AppColor.secundary,
-                        ),
-                        Text(
-                          "My List",
-                          style: AppTextStyles.userNameText,
-                        )
-                      ],
+                    ButtonIconTextVertical(
+                      icon: Icons.add,
+                      text: "My List",
+                      onTap: () {},
                     ),
-                    ButtonPlay(onPressed: (){}, size: Size(30, 35)),
-                    GestureDetector(
+                    ButtonIconTextHorizontal(
+                      text: "Play",
+                      icon: Icons.play_arrow,
+                      onPressed: () {},
+                      size: Size(30, 35),
+                    ),
+                    ButtonIconTextVertical(
+                      icon: Icons.info_outline,
+                      text: "Info",
                       onTap: () {
                         Navigator.push(
                           context,
@@ -75,19 +76,7 @@ class HomeScreen extends StatelessWidget {
                           ),
                         );
                       },
-                      child: Column(
-                        children: [
-                          Icon(
-                            Icons.info_outline,
-                            color: AppColor.secundary,
-                          ),
-                          Text(
-                            "Info",
-                            style: AppTextStyles.userNameText,
-                          )
-                        ],
-                      ),
-                    )
+                    ),
                   ],
                 ),
                 MovieList(
