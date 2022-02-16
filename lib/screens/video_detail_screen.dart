@@ -4,7 +4,7 @@ import 'package:netflix_clone_ui/provider/data.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 import 'package:netflix_clone_ui/widgets/appBar_home.dart';
-import 'package:netflix_clone_ui/widgets/info_movie.dart';
+import 'package:netflix_clone_ui/widgets/info_video.dart';
 
 class VideoDetailScreen extends StatefulWidget {
   final Map<String, String> movie;

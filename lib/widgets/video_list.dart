@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:netflix_clone_ui/screens/video_detail_screen.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
-import 'package:netflix_clone_ui/widgets/movie_info_modal.dart';
+import 'package:netflix_clone_ui/widgets/video_info_modal.dart';
 
 class MovieList extends StatelessWidget {
   final String title;

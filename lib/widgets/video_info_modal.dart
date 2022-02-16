@@ -3,7 +3,8 @@ import 'package:netflix_clone_ui/provider/data.dart';
 import 'package:netflix_clone_ui/screens/video_detail_screen.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
-import 'package:netflix_clone_ui/widgets/info_movie.dart';
+import 'package:netflix_clone_ui/widgets/button_play.dart';
+import 'package:netflix_clone_ui/widgets/info_video.dart';
 
 class MovieInfoModal extends StatelessWidget {
   final String poster;
@@ -79,15 +80,9 @@ class MovieInfoModal extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
-                      minimumSize: Size(sizeScreen.width * 0.4, 35)),
-                  icon: Icon(Icons.play_arrow, color: Colors.black,),
-                  label: Text("Play", style: AppTextStyles.iconLightButtonText,),
-                  onPressed: () {
-                    // Play Video
-                  },
+                ButtonPlay(
+                  onPressed: () {},
+                  size: Size(sizeScreen.width * 0.4, 35),
                 ),
                 Column(
                   children: [

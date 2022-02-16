@@ -5,6 +5,7 @@ import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 import 'package:netflix_clone_ui/widgets/appBar_home.dart';
 import 'package:netflix_clone_ui/widgets/bottom_appBar_home.dart';
+import 'package:netflix_clone_ui/widgets/button_play.dart';
 import 'package:netflix_clone_ui/widgets/category_list_banner.dart';
 import 'package:netflix_clone_ui/widgets/continue_watching_video_list.dart';
 import 'package:netflix_clone_ui/widgets/video_list.dart';
@@ -62,22 +63,7 @@ class HomeScreen extends StatelessWidget {
                         )
                       ],
                     ),
-                    ElevatedButton.icon(
-                      style: TextButton.styleFrom(
-                        backgroundColor: AppColor.secundary,
-                      ),
-                      onPressed: () {
-                        // Play video
-                      },
-                      label: Text(
-                        "Play",
-                        style: AppTextStyles.buttonHomeText,
-                      ),
-                      icon: Icon(
-                        Icons.play_arrow,
-                        color: AppColor.background,
-                      ),
-                    ),
+                    ButtonPlay(onPressed: (){}, size: Size(30, 35)),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
