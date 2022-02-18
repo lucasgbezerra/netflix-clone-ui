@@ -5,9 +5,9 @@ import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 import 'package:netflix_clone_ui/widgets/options_modal_bottom_sheet.dart';
 
-class ContinueWatchingMovieList extends StatelessWidget {
+class ContinueWatchingVideoList extends StatelessWidget {
   final List<String> movies;
-  const ContinueWatchingMovieList({Key? key, required this.movies})
+  const ContinueWatchingVideoList({Key? key, required this.movies})
       : super(key: key);
 
   @override

@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:netflix_clone_ui/core/configurations.dart';
 import 'package:netflix_clone_ui/models/popular_movies.dart';
 
-class MovieRepository {
+class VideoRepository {
   final Dio _dio = Dio(dioOptions);
 
   Future<PopularMovies?> getPopularMovies(int page) async {

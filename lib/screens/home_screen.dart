@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_clone_ui/models/popular_movies.dart';
 import 'package:netflix_clone_ui/provider/data.dart';
+import 'package:netflix_clone_ui/repositories/video_repository.dart';
 import 'package:netflix_clone_ui/screens/video_detail_screen.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
@@ -16,6 +18,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _videoRepository = VideoRepository();
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColor.background,
@@ -79,31 +82,44 @@ class HomeScreen extends StatelessWidget {
                     )
                   ],
                 ),
-                MovieList(
-                  title: "My List",
-                  height: 210,
-                  width: 140,
-                  movies: Data.imagesVideos,
+                FutureBuilder<PopularMovies?>(
+                  future: _videoRepository.getPopularMovies(1),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation(Colors.white),
+                        ),
+                      );
+                    } else {
+                      return VideoList(
+                        title: "Movies",
+                        height: 210,
+                        width: 140,
+                        videos: snapshot.data!.results,
+                      );
+                    }
+                  },
                 ),
-                MovieList(
-                  title: "Only on Netflix",
-                  height: 300,
-                  width: 200,
-                  movies: Data.imagesVideos,
-                ),
-                ContinueWatchingMovieList(movies: Data.imagesVideos),
-                MovieList(
-                  title: "Trending Now",
-                  height: 210,
-                  width: 140,
-                  movies: Data.imagesVideos,
-                ),
-                MovieList(
-                  title: "TV Shows",
-                  height: 210,
-                  width: 140,
-                  movies: Data.imagesVideos,
-                ),
+                // VideoList(
+                //   title: "Only on Netflix",
+                //   height: 300,
+                //   width: 200,
+                //   movies: Data.imagesVideos,
+                // ),
+                ContinueWatchingVideoList(movies: Data.imagesVideos),
+                // VideoList(
+                //   title: "Trending Now",
+                //   height: 210,
+                //   width: 140,
+                //   movies: Data.imagesVideos,
+                // ),
+                // VideoList(
+                //   title: "TV Shows",
+                //   height: 210,
+                //   width: 140,
+                //   movies: Data.imagesVideos,
+                // ),
               ],
             ),
             SafeArea(

@@ -4,18 +4,19 @@ import 'package:netflix_clone_ui/screens/video_detail_screen.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 import 'package:netflix_clone_ui/widgets/video_info_modal.dart';
+import 'package:netflix_clone_ui/core/configurations.dart';
 
-class MovieList extends StatelessWidget {
+class VideoList extends StatelessWidget {
   final String title;
   final double height;
   final double width;
-  final List<String> movies;
-  const MovieList(
+  final List videos;
+  const VideoList(
       {Key? key,
       required this.title,
       required this.height,
       required this.width,
-      required this.movies})
+      required this.videos})
       : super(key: key);
 
   @override
@@ -53,7 +54,7 @@ class MovieList extends StatelessWidget {
                         topRight: Radius.circular(10),
                       )),
                       builder: (contex) =>
-                          MovieInfoModal(poster: movies[index]),
+                          MovieInfoModal(poster: videos[index]),
                     );
                   },
                   child: Container(
@@ -62,8 +63,8 @@ class MovieList extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
-                        image: AssetImage(
-                          movies[index],
+                        image: NetworkImage(
+                          "$imageBaseUrl$minImageSize${videos[index].posterPath}",
                         ),
                       ),
                     ),
@@ -73,7 +74,7 @@ class MovieList extends StatelessWidget {
               separatorBuilder: (context, index) => Container(
                 width: 8,
               ),
-              itemCount: movies.length,
+              itemCount: videos.length,
             ),
           )
         ],
