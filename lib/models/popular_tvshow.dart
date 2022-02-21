@@ -7,10 +7,10 @@ class PopularTvshow {
   final DateTime firstAirDate;
   final List<int> genreIds;
   final int id;
-  final String name;
+  final String title;
   final List<String> originCountry;
   final String originalLanguage;
-  final String originalName;
+  final String originalTitle;
   final String overview;
   final double popularity;
   final String posterPath;
@@ -21,10 +21,10 @@ class PopularTvshow {
     required this.firstAirDate,
     required this.genreIds,
     required this.id,
-    required this.name,
+    required this.title,
     required this.originCountry,
     required this.originalLanguage,
-    required this.originalName,
+    required this.originalTitle,
     required this.overview,
     required this.popularity,
     required this.posterPath,
@@ -37,10 +37,10 @@ class PopularTvshow {
     DateTime? firstAirDate,
     List<int>? genreIds,
     int? id,
-    String? name,
+    String? title,
     List<String>? originCountry,
     String? originalLanguage,
-    String? originalName,
+    String? originalTitle,
     String? overview,
     double? popularity,
     String? posterPath,
@@ -52,10 +52,10 @@ class PopularTvshow {
       firstAirDate: firstAirDate ?? this.firstAirDate,
       genreIds: genreIds ?? this.genreIds,
       id: id ?? this.id,
-      name: name ?? this.name,
+      title: title ?? this.title,
       originCountry: originCountry ?? this.originCountry,
       originalLanguage: originalLanguage ?? this.originalLanguage,
-      originalName: originalName ?? this.originalName,
+      originalTitle: originalTitle ?? this.originalTitle,
       overview: overview ?? this.overview,
       popularity: popularity ?? this.popularity,
       posterPath: posterPath ?? this.posterPath,
@@ -70,10 +70,10 @@ class PopularTvshow {
       'firstAirDate': firstAirDate.millisecondsSinceEpoch,
       'genreIds': genreIds,
       'id': id,
-      'name': name,
+      'title': title,
       'originCountry': originCountry,
       'originalLanguage': originalLanguage,
-      'originalName': originalName,
+      'originalTitle': originalTitle,
       'overview': overview,
       'popularity': popularity,
       'posterPath': posterPath,
@@ -88,10 +88,10 @@ class PopularTvshow {
       firstAirDate: DateTime.parse(map['first_air_date']),
       genreIds: List<int>.from(map['genre_ids']),
       id: map['id']?.toInt() ?? 0,
-      name: map['name'] ?? '',
+      title: map['name'] ?? '',
       originCountry: List<String>.from(map['origin_country']),
       originalLanguage: map['original_language'] ?? '',
-      originalName: map['originalName'] ?? '',
+      originalTitle: map['original_name'] ?? '',
       overview: map['overview'] ?? '',
       popularity: map['popularity']?.toDouble() ?? 0.0,
       posterPath: map['poster_path'] ?? '',
@@ -106,7 +106,7 @@ class PopularTvshow {
 
   @override
   String toString() {
-    return 'PopularTvshow(backdropPath: $backdropPath, firstAirDate: $firstAirDate, genreIds: $genreIds, id: $id, name: $name, originCountry: $originCountry, originalLanguage: $originalLanguage, originalName: $originalName, overview: $overview, popularity: $popularity, posterPath: $posterPath, voteAverage: $voteAverage, voteCount: $voteCount)';
+    return 'PopularTvshow(backdropPath: $backdropPath, firstAirDate: $firstAirDate, genreIds: $genreIds, id: $id, title: $title, originCountry: $originCountry, originalLanguage: $originalLanguage, originalTitle: $originalTitle, overview: $overview, popularity: $popularity, posterPath: $posterPath, voteAverage: $voteAverage, voteCount: $voteCount)';
   }
 
   @override
@@ -118,10 +118,10 @@ class PopularTvshow {
       other.firstAirDate == firstAirDate &&
       listEquals(other.genreIds, genreIds) &&
       other.id == id &&
-      other.name == name &&
+      other.title == title &&
       listEquals(other.originCountry, originCountry) &&
       other.originalLanguage == originalLanguage &&
-      other.originalName == originalName &&
+      other.originalTitle == originalTitle &&
       other.overview == overview &&
       other.popularity == popularity &&
       other.posterPath == posterPath &&
@@ -135,10 +135,10 @@ class PopularTvshow {
       firstAirDate.hashCode ^
       genreIds.hashCode ^
       id.hashCode ^
-      name.hashCode ^
+      title.hashCode ^
       originCountry.hashCode ^
       originalLanguage.hashCode ^
-      originalName.hashCode ^
+      originalTitle.hashCode ^
       overview.hashCode ^
       popularity.hashCode ^
       posterPath.hashCode ^
