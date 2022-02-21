@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_clone_ui/models/popular_movies.dart';
+import 'package:netflix_clone_ui/models/popular_tvshows.dart';
 import 'package:netflix_clone_ui/provider/data.dart';
 import 'package:netflix_clone_ui/repositories/video_repository.dart';
 import 'package:netflix_clone_ui/screens/video_detail_screen.dart';
@@ -11,6 +12,7 @@ import 'package:netflix_clone_ui/widgets/button_icon_text_horizontal.dart';
 import 'package:netflix_clone_ui/widgets/button_icon_text_vertical.dart';
 import 'package:netflix_clone_ui/widgets/category_list_banner.dart';
 import 'package:netflix_clone_ui/widgets/continue_watching_video_list.dart';
+import 'package:netflix_clone_ui/widgets/loading_widgeet.dart';
 import 'package:netflix_clone_ui/widgets/video_list.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -86,11 +88,7 @@ class HomeScreen extends StatelessWidget {
                   future: _videoRepository.getPopularMovies(1),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
-                      return const Center(
-                        child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(Colors.white),
-                        ),
-                      );
+                      return const LoadingWidget();
                     } else {
                       return VideoList(
                         title: "Movies",
@@ -108,12 +106,36 @@ class HomeScreen extends StatelessWidget {
                 //   movies: Data.imagesVideos,
                 // ),
                 ContinueWatchingVideoList(movies: Data.imagesVideos),
-                // VideoList(
-                //   title: "Trending Now",
-                //   height: 210,
-                //   width: 140,
-                //   movies: Data.imagesVideos,
-                // ),
+               FutureBuilder<PopularTvshows?>(
+                  future: _videoRepository.getPopularTvShows(1),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return const LoadingWidget();
+                    } else {
+                      return VideoList(
+                        title: "Tv Shows",
+                        height: 210,
+                        width: 140,
+                        videos: snapshot.data!.results,
+                      );
+                    }
+                  },
+                ),
+                  FutureBuilder<PopularMovies?>(
+                  future: _videoRepository.getPopularMovieGenre("Action"),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return const LoadingWidget();
+                    } else {
+                      return VideoList(
+                        title: "Action Movies",
+                        height: 210,
+                        width: 140,
+                        videos: snapshot.data!.results,
+                      );
+                    }
+                  },
+                ),
                 // VideoList(
                 //   title: "TV Shows",
                 //   height: 210,
