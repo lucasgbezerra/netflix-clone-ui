@@ -84,19 +84,19 @@ class PopularTvshow {
 
   factory PopularTvshow.fromMap(Map<String, dynamic> map) {
     return PopularTvshow(
-      backdropPath: map['backdropPath'] ?? '',
-      firstAirDate: DateTime.fromMillisecondsSinceEpoch(map['firstAirDate']),
-      genreIds: List<int>.from(map['genreIds']),
+      backdropPath: map['backdrop_path'] ?? '',
+      firstAirDate: DateTime.parse(map['first_air_date']),
+      genreIds: List<int>.from(map['genre_ids']),
       id: map['id']?.toInt() ?? 0,
       name: map['name'] ?? '',
-      originCountry: List<String>.from(map['originCountry']),
-      originalLanguage: map['originalLanguage'] ?? '',
+      originCountry: List<String>.from(map['origin_country']),
+      originalLanguage: map['original_language'] ?? '',
       originalName: map['originalName'] ?? '',
       overview: map['overview'] ?? '',
       popularity: map['popularity']?.toDouble() ?? 0.0,
-      posterPath: map['posterPath'] ?? '',
-      voteAverage: map['voteAverage']?.toDouble() ?? 0.0,
-      voteCount: map['voteCount']?.toInt() ?? 0,
+      posterPath: map['poster_path'] ?? '',
+      voteAverage: map['vote_average']?.toDouble() ?? 0.0,
+      voteCount: map['vote_count']?.toInt() ?? 0,
     );
   }
 
