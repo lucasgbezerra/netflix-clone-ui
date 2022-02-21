@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_clone_ui/models/popular_movie.dart';
 import 'package:netflix_clone_ui/provider/data.dart';
 import 'package:netflix_clone_ui/screens/video_detail_screen.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 import 'package:netflix_clone_ui/widgets/button_icon_text_horizontal.dart';
 import 'package:netflix_clone_ui/widgets/info_video.dart';
+import 'package:netflix_clone_ui/core/configurations.dart';
 
 import 'button_icon_text_vertical.dart';
 
-class MovieInfoModal extends StatelessWidget {
-  final String poster;
-  const MovieInfoModal({Key? key, required this.poster}) : super(key: key);
+class VideoInfoModal extends StatelessWidget {
+  final dynamic video;
+  const VideoInfoModal({Key? key, required this.video}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +34,8 @@ class MovieInfoModal extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     image: DecorationImage(
-                      image: AssetImage(
-                        poster,
+                      image: NetworkImage(
+                        "$imageBaseUrl$minImageSize${video.posterPath}",
                       ),
                     ),
                   ),
@@ -47,17 +49,21 @@ class MovieInfoModal extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 5),
                         child: Text(
-                          "Title",
+                          video.title,
                           style: AppTextStyles.titleMovieText,
+                          overflow: TextOverflow.fade,
                         ),
                       ),
+                      // TODO: Obter infos do Movie/TvShow
                       InfoMovie(),
                       Container(
                         width: sizeScreen.width * 0.6,
                         padding: EdgeInsets.fromLTRB(0, 8, 10, 10),
                         child: Text(
-                          "Text with movie synopsis. Text with movie synopsis. Text with movie synopsis. Text with movie synopsis.",
+                          video.overview,
                           style: AppTextStyles.descriptionMovieTextModal,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 7,
                         ),
                       ),
                     ],
@@ -85,7 +91,13 @@ class MovieInfoModal extends StatelessWidget {
                 ButtonIconTextHorizontal(
                   text: "Play",
                   icon: Icons.play_arrow,
-                  onPressed: () {},
+                  onPressed: () {
+                    if( video is PopularMovie){
+                      print("movie");
+                    }else{
+                      print("video");
+                    }
+                  },
                   size: Size(sizeScreen.width * 0.4, 35),
                 ),
                 ButtonIconTextVertical(
@@ -139,7 +151,7 @@ class MovieInfoModal extends StatelessWidget {
                       color: AppColor.secundary,
                     ),
                   ),
-                  Text("Episodes & Info", style: AppTextStyles.infoModalButton),
+                  Text(video is PopularMovie? "Details & More":"Episodes & Info", style: AppTextStyles.infoModalButton),
                   Expanded(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
