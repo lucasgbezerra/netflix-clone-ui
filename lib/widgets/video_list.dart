@@ -54,7 +54,7 @@ class VideoList extends StatelessWidget {
                         topRight: Radius.circular(10),
                       )),
                       builder: (contex) =>
-                          MovieInfoModal(poster: videos[index]),
+                          VideoInfoModal(video: videos[index]),
                     );
                   },
                   child: Container(

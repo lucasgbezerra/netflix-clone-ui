@@ -5,7 +5,6 @@ import 'package:netflix_clone_ui/provider/data.dart';
 import 'package:netflix_clone_ui/repositories/video_repository.dart';
 import 'package:netflix_clone_ui/screens/video_detail_screen.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
-import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 import 'package:netflix_clone_ui/widgets/appBar_home.dart';
 import 'package:netflix_clone_ui/widgets/bottom_appBar_home.dart';
 import 'package:netflix_clone_ui/widgets/button_icon_text_horizontal.dart';
@@ -99,12 +98,7 @@ class HomeScreen extends StatelessWidget {
                     }
                   },
                 ),
-                // VideoList(
-                //   title: "Only on Netflix",
-                //   height: 300,
-                //   width: 200,
-                //   movies: Data.imagesVideos,
-                // ),
+
                 ContinueWatchingVideoList(movies: Data.imagesVideos),
                FutureBuilder<PopularTvshows?>(
                   future: _videoRepository.getPopularTvShows(1),
@@ -136,12 +130,7 @@ class HomeScreen extends StatelessWidget {
                     }
                   },
                 ),
-                // VideoList(
-                //   title: "TV Shows",
-                //   height: 210,
-                //   width: 140,
-                //   movies: Data.imagesVideos,
-                // ),
+
               ],
             ),
             SafeArea(
