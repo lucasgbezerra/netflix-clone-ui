@@ -2,63 +2,67 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-class PopularTvshow {
+class Movie {
+  final bool adult;
   final String backdropPath;
-  final DateTime firstAirDate;
   final List<int> genreIds;
   final int id;
-  final String title;
-  final List<String> originCountry;
   final String originalLanguage;
   final String originalTitle;
   final String overview;
   final double popularity;
   final String posterPath;
+  final DateTime releaseDate;
+  final String title;
+  final bool video;
   final double voteAverage;
   final int voteCount;
-  PopularTvshow({
+  Movie({
+    required this.adult,
     required this.backdropPath,
-    required this.firstAirDate,
     required this.genreIds,
     required this.id,
-    required this.title,
-    required this.originCountry,
     required this.originalLanguage,
     required this.originalTitle,
     required this.overview,
     required this.popularity,
     required this.posterPath,
+    required this.releaseDate,
+    required this.title,
+    required this.video,
     required this.voteAverage,
     required this.voteCount,
   });
 
-  PopularTvshow copyWith({
+  Movie copyWith({
+    bool? adult,
     String? backdropPath,
-    DateTime? firstAirDate,
     List<int>? genreIds,
     int? id,
-    String? title,
-    List<String>? originCountry,
     String? originalLanguage,
     String? originalTitle,
     String? overview,
     double? popularity,
     String? posterPath,
+    DateTime? releaseDate,
+    String? title,
+    bool? video,
     double? voteAverage,
     int? voteCount,
   }) {
-    return PopularTvshow(
+    return Movie(
+      adult: adult ?? this.adult,
       backdropPath: backdropPath ?? this.backdropPath,
-      firstAirDate: firstAirDate ?? this.firstAirDate,
       genreIds: genreIds ?? this.genreIds,
       id: id ?? this.id,
-      title: title ?? this.title,
-      originCountry: originCountry ?? this.originCountry,
       originalLanguage: originalLanguage ?? this.originalLanguage,
       originalTitle: originalTitle ?? this.originalTitle,
       overview: overview ?? this.overview,
       popularity: popularity ?? this.popularity,
       posterPath: posterPath ?? this.posterPath,
+      releaseDate: releaseDate ?? this.releaseDate,
+      title: title ?? this.title,
+      video: video ?? this.video,
       voteAverage: voteAverage ?? this.voteAverage,
       voteCount: voteCount ?? this.voteCount,
     );
@@ -66,35 +70,37 @@ class PopularTvshow {
 
   Map<String, dynamic> toMap() {
     return {
+      'adult': adult,
       'backdropPath': backdropPath,
-      'firstAirDate': firstAirDate.millisecondsSinceEpoch,
       'genreIds': genreIds,
       'id': id,
-      'title': title,
-      'originCountry': originCountry,
       'originalLanguage': originalLanguage,
       'originalTitle': originalTitle,
       'overview': overview,
       'popularity': popularity,
       'posterPath': posterPath,
+      'releaseDate': releaseDate.millisecondsSinceEpoch,
+      'title': title,
+      'video': video,
       'voteAverage': voteAverage,
       'voteCount': voteCount,
     };
   }
 
-  factory PopularTvshow.fromMap(Map<String, dynamic> map) {
-    return PopularTvshow(
+  factory Movie.fromMap(Map<String, dynamic> map) {
+    return Movie(
+      adult: map['adult'] ?? false,
       backdropPath: map['backdrop_path'] ?? '',
-      firstAirDate: DateTime.parse(map['first_air_date']),
       genreIds: List<int>.from(map['genre_ids']),
       id: map['id']?.toInt() ?? 0,
-      title: map['name'] ?? '',
-      originCountry: List<String>.from(map['origin_country']),
       originalLanguage: map['original_language'] ?? '',
-      originalTitle: map['original_name'] ?? '',
+      originalTitle: map['original_title'] ?? '',
       overview: map['overview'] ?? '',
       popularity: map['popularity']?.toDouble() ?? 0.0,
       posterPath: map['poster_path'] ?? '',
+      releaseDate: DateTime.parse(map['release_date']),
+      title: map['title'] ?? '',
+      video: map['video'] ?? false,
       voteAverage: map['vote_average']?.toDouble() ?? 0.0,
       voteCount: map['vote_count']?.toInt() ?? 0,
     );
@@ -102,46 +108,48 @@ class PopularTvshow {
 
   String toJson() => json.encode(toMap());
 
-  factory PopularTvshow.fromJson(String source) => PopularTvshow.fromMap(json.decode(source));
+  factory Movie.fromJson(String source) => Movie.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'PopularTvshow(backdropPath: $backdropPath, firstAirDate: $firstAirDate, genreIds: $genreIds, id: $id, title: $title, originCountry: $originCountry, originalLanguage: $originalLanguage, originalTitle: $originalTitle, overview: $overview, popularity: $popularity, posterPath: $posterPath, voteAverage: $voteAverage, voteCount: $voteCount)';
+    return 'Movie(adult: $adult, backdropPath: $backdropPath, genreIds: $genreIds, id: $id, originalLanguage: $originalLanguage, originalTitle: $originalTitle, overview: $overview, popularity: $popularity, posterPath: $posterPath, releaseDate: $releaseDate, title: $title, video: $video, voteAverage: $voteAverage, voteCount: $voteCount)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
   
-    return other is PopularTvshow &&
+    return other is Movie &&
+      other.adult == adult &&
       other.backdropPath == backdropPath &&
-      other.firstAirDate == firstAirDate &&
       listEquals(other.genreIds, genreIds) &&
       other.id == id &&
-      other.title == title &&
-      listEquals(other.originCountry, originCountry) &&
       other.originalLanguage == originalLanguage &&
       other.originalTitle == originalTitle &&
       other.overview == overview &&
       other.popularity == popularity &&
       other.posterPath == posterPath &&
+      other.releaseDate == releaseDate &&
+      other.title == title &&
+      other.video == video &&
       other.voteAverage == voteAverage &&
       other.voteCount == voteCount;
   }
 
   @override
   int get hashCode {
-    return backdropPath.hashCode ^
-      firstAirDate.hashCode ^
+    return adult.hashCode ^
+      backdropPath.hashCode ^
       genreIds.hashCode ^
       id.hashCode ^
-      title.hashCode ^
-      originCountry.hashCode ^
       originalLanguage.hashCode ^
       originalTitle.hashCode ^
       overview.hashCode ^
       popularity.hashCode ^
       posterPath.hashCode ^
+      releaseDate.hashCode ^
+      title.hashCode ^
+      video.hashCode ^
       voteAverage.hashCode ^
       voteCount.hashCode;
   }
