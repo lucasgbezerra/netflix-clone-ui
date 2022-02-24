@@ -1,84 +1,74 @@
 import 'package:dio/dio.dart';
 
 import 'package:netflix_clone_ui/core/configurations.dart';
-import 'package:netflix_clone_ui/models/genres.dart';
-import 'package:netflix_clone_ui/models/popular_movies.dart';
-import 'package:netflix_clone_ui/models/popular_tvshows.dart';
+import 'package:netflix_clone_ui/models/genre.dart';
+import 'package:netflix_clone_ui/models/movie.dart';
+import 'package:netflix_clone_ui/models/movie_detail.dart';
+import 'package:netflix_clone_ui/models/tvshow.dart';
 
 class VideoRepository {
   final Dio _dio = Dio(dioOptions);
   final String filter = 'language=en-US&with_watch_providers=8&watch_region=US';
 
-  Future<PopularMovies?> getPopularMovies(int page) async {
-    PopularMovies? model;
+  Future<List<Movie>> getPopularMovies(int page) async {
     try {
       final response = await _dio.get('/movie/popular?$filter&page=$page');
-      model = PopularMovies.fromMap(response.data);
+      final moviesJson = response.data['results'] as List;
+      List<Movie> movies = moviesJson.map((map) => Movie.fromMap(map)).toList();
+      return movies;
     } on DioError catch (error) {
-      if (error.response != null) {
-        print(
-            "An error has occurred. Status code: ${error.response!.statusCode}");
-      } else {
-        print(serverError);
-      }
+      throw Exception(
+          "An error has occurred. Status code: ${error.response!.statusCode}");
     }
-    return model;
   }
 
-  Future<PopularTvshows?> getPopularTvShows(int page) async {
-    PopularTvshows? model;
+  Future<List<Tvshow>> getPopularTvShows(int page) async {
     try {
       final response = await _dio.get('/tv/popular?$filter&page=$page');
-      model = PopularTvshows.fromMap(response.data);
+      final tvShowsJson = response.data['results'] as List;
+      List<Tvshow> tvShows =
+          tvShowsJson.map((map) => Tvshow.fromMap(map)).toList();
+      return tvShows;
     } on DioError catch (error) {
-      if (error.response != null) {
-        print(
-            "An error has occurred. Status code: ${error.response!.statusCode}");
-      } else {
-        print(serverError);
-      }
+      throw Exception(
+          "An error has occurred. Status code: ${error.response!.statusCode}");
     }
-    return model;
   }
 
-  Future<PopularMovies?> getPopularMovieGenre(String genre) async {
-    PopularMovies? model;
+  Future<List<Movie>> getPopularMovieByGenre(int idGenre) async {
     try {
-      final genres = await getGenre();
-      if (genres != null) {
-        int id = genres.indexWhere((g) => g.name.toLowerCase() == genre.toLowerCase());
-        final response = await _dio.get(
-            '/discover/movie?$filter&with_genres=${genres[id]}&sort_by=vote_average.desc&vote_count.gte=10');
-        model = PopularMovies.fromMap(response.data);
-      }
+      final response = await _dio.get(
+          '/discover/movie?$filter&with_genres=$idGenre&sort_by=vote_average.desc&vote_count.gte=10');
+
+      final moviesJson = response.data['results'] as List;
+      List<Movie> movies = moviesJson.map((map) => Movie.fromMap(map)).toList();
+      return movies;
     } on DioError catch (error) {
-      if (error.response != null) {
-        print(
-            "An error has occurred. Status code: ${error.response!.statusCode}");
-      } else {
-        print(serverError);
-      }
+      throw Exception(
+          "An error has occurred. Status code: ${error.response!.statusCode}");
     }
-    return model;
   }
 
-  Future<List<Genre>>? getGenre() async {
-    List<Genre> list_model = [];
-
+  Future<List<Genre>> getGenres() async {
     try {
       final response = await _dio.get('/genre/movie/list?language=en-US');
-      for (var genre in response.data['genres']) {
-        list_model.add(Genre.fromMap(genre));
-      }
-      // model = List<Genre>.fromMap(response.data);
+      final genresJson = response.data['results'] as List;
+      List<Genre> genres = genresJson.map((map) => Genre.fromMap(map)).toList();
+      return genres;
     } on DioError catch (error) {
-      if (error.response != null) {
-        print(
-            "An error has occurred. Status code: ${error.response!.statusCode}");
-      } else {
-        print(serverError);
-      }
+      throw Exception(
+          "An error has occurred. Status code: ${error.response!.statusCode}");
     }
-    return list_model;
+  }
+
+  Future<MovieDetail> getMovieDetail(int id) async {
+    try {
+      final response = await _dio.get('/movie/$id&language=en-US');
+      final movie = MovieDetail.fromMap(response.data);
+      return movie;
+    } on DioError catch (error) {
+      throw Exception(
+          "An error has occurred. Status code: ${error.response!.statusCode}");
+    }
   }
 }
