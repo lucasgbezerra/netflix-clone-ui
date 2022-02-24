@@ -3,10 +3,19 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 
-class InfoMovie extends StatelessWidget {
-  final bool isMovie;
-  final bool isComplete;
-  InfoMovie({Key? key, this.isMovie = false, this.isComplete = false})
+class InfoVideo extends StatelessWidget {
+  final bool showQuality;
+  final DateTime releaseDate;
+  final String ageRating;
+  final int? runtime;
+  final String? seasons;
+  InfoVideo(
+      {Key? key,
+      this.showQuality = false,
+      required this.releaseDate,
+      required this.ageRating,
+      this.runtime,
+      this.seasons})
       : super(key: key);
 
   @override
@@ -16,17 +25,16 @@ class InfoMovie extends StatelessWidget {
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         Text(
-          "2019",
+          releaseDate.year.toString(),
           style: AppTextStyles.descriptionMovieText,
         ),
         Container(
           height: 20,
-          width: 20,
           // Cor condizente com a classificação
           alignment: Alignment.center,
           color: Colors.black,
           child: Text(
-            "18",
+            ageRating,
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -34,11 +42,11 @@ class InfoMovie extends StatelessWidget {
           ),
         ),
         Text(
-          isMovie ? "1h 58m" : "5 Seasons",
+          seasons ?? formatRuntime(runtime!),
           style: AppTextStyles.descriptionMovieText,
         ),
         Container(
-            child: isComplete
+            child: showQuality
                 ? Container(
                     height: 15,
                     width: 20,
@@ -48,13 +56,21 @@ class InfoMovie extends StatelessWidget {
                       "HD",
                       textAlign: TextAlign.center,
                       style: GoogleFonts.roboto(
-                        color: AppColor.background,
-                        fontWeight: FontWeight.w500
-                      ),
+                          color: AppColor.background,
+                          fontWeight: FontWeight.w500),
                     ),
                   )
                 : SizedBox()),
       ],
     );
+  }
+
+  String formatRuntime(int runtime){
+    final duration = Duration(minutes: runtime);
+    if (runtime < 60){
+      return "${duration.inMinutes}m";
+    }else{
+      return "${duration.inHours}h ${duration.inMinutes - duration.inHours*60}m";
+    }
   }
 }

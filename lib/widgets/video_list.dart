@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netflix_clone_ui/models/movie.dart';
 import 'package:netflix_clone_ui/screens/video_detail_screen.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
@@ -53,8 +54,9 @@ class VideoList extends StatelessWidget {
                         topLeft: Radius.circular(10),
                         topRight: Radius.circular(10),
                       )),
-                      builder: (contex) =>
-                          VideoInfoModal(video: videos[index]),
+                      builder: (contex) => VideoInfoModal(
+                          videoId: videos[index].id,
+                          isMovie: videos[index] is Movie),
                     );
                   },
                   child: Container(
