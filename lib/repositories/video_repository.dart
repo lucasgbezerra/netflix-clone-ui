@@ -91,11 +91,27 @@ class VideoRepository {
 
   Future<Season> getTvshowSeason(int idTvshow, int numberOfSeason) async {
     try {
-      final response = await _dio
-          .get('/tv/$idTvshow/season/$numberOfSeason?language=en-US');
-     
+      final response =
+          await _dio.get('/tv/$idTvshow/season/$numberOfSeason?language=en-US');
+
       final season = Season.fromMap(response.data);
       return season;
+    } on DioError catch (error) {
+      throw Exception(
+          "An error has occurred. Status code: ${error.response!.statusCode}");
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> getTvshowSimilar(int idTvshow) async {
+    try {
+      final response = await _dio.get('/tv/$idTvshow/similar?$filter&page=1');
+
+      List<Map<String, dynamic>> moreLikeThis = [];
+      response.data['results'].forEach((e) {
+        moreLikeThis.add({'id': e['id'], 'posterPath': e['poster_path']});
+      });
+
+      return moreLikeThis;
     } on DioError catch (error) {
       throw Exception(
           "An error has occurred. Status code: ${error.response!.statusCode}");
