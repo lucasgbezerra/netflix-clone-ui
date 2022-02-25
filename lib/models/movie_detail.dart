@@ -6,31 +6,32 @@ import 'genre.dart';
 
 class MovieDetail {
 
-    bool adult;
-    String backdropPath;
-    dynamic belongsToCollection;
-    int budget;
-    List<Genre> genres;
-    String homepage;
-    int id;
-    String imdbId;
-    String originalLanguage;
-    String originalTitle;
-    String overview;
-    double popularity;
-    String posterPath;
-    // List<ProductionCompany> productionCompanies;
-    // List<ProductionCountry> productionCountries;
-    DateTime releaseDate;
-    int revenue;
-    int runtime;
-    // List<SpokenLanguage> spokenLanguages;
-    String status;
-    String tagline;
-    String title;
-    bool video;
-    double voteAverage;
-    int voteCount;
+  final bool adult;
+  final String backdropPath;
+  final dynamic belongsToCollection;
+  final int budget;
+  final List<Genre> genres;
+  final String homepage;
+  final int id;
+  final String imdbId;
+  final String originalLanguage;
+  final String originalTitle;
+  final String overview;
+  final double popularity;
+  final String posterPath;
+  // final  List<ProductionCompany> productionCompanies;
+  // final List<ProductionCountry> productionCountries;
+  final DateTime releaseDate;
+  final int revenue;
+  final int runtime;
+  // final List<SpokenLanguage> spokenLanguages;
+  final String status;
+  final String tagline;
+  final String title;
+  final bool video;
+  final double voteAverage;
+  final int voteCount;
+  final String ageRating;
   MovieDetail({
     required this.adult,
     required this.backdropPath,
@@ -54,58 +55,9 @@ class MovieDetail {
     required this.video,
     required this.voteAverage,
     required this.voteCount,
+    required this.ageRating,
   });
   
-
-  MovieDetail copyWith({
-    bool? adult,
-    String? backdropPath,
-    dynamic? belongsToCollection,
-    int? budget,
-    List<Genre>? genres,
-    String? homepage,
-    int? id,
-    String? imdbId,
-    String? originalLanguage,
-    String? originalTitle,
-    String? overview,
-    double? popularity,
-    String? posterPath,
-    DateTime? releaseDate,
-    int? revenue,
-    int? runtime,
-    String? status,
-    String? tagline,
-    String? title,
-    bool? video,
-    double? voteAverage,
-    int? voteCount,
-  }) {
-    return MovieDetail(
-      adult: adult ?? this.adult,
-      backdropPath: backdropPath ?? this.backdropPath,
-      belongsToCollection: belongsToCollection ?? this.belongsToCollection,
-      budget: budget ?? this.budget,
-      genres: genres ?? this.genres,
-      homepage: homepage ?? this.homepage,
-      id: id ?? this.id,
-      imdbId: imdbId ?? this.imdbId,
-      originalLanguage: originalLanguage ?? this.originalLanguage,
-      originalTitle: originalTitle ?? this.originalTitle,
-      overview: overview ?? this.overview,
-      popularity: popularity ?? this.popularity,
-      posterPath: posterPath ?? this.posterPath,
-      releaseDate: releaseDate ?? this.releaseDate,
-      revenue: revenue ?? this.revenue,
-      runtime: runtime ?? this.runtime,
-      status: status ?? this.status,
-      tagline: tagline ?? this.tagline,
-      title: title ?? this.title,
-      video: video ?? this.video,
-      voteAverage: voteAverage ?? this.voteAverage,
-      voteCount: voteCount ?? this.voteCount,
-    );
-  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -131,6 +83,7 @@ class MovieDetail {
       'video': video,
       'voteAverage': voteAverage,
       'voteCount': voteCount,
+      'ageRating': ageRating,
     };
   }
 
@@ -149,7 +102,7 @@ class MovieDetail {
       overview: map['overview'] ?? '',
       popularity: map['popularity']?.toDouble() ?? 0.0,
       posterPath: map['poster_path'] ?? '',
-      releaseDate: DateTime.fromMillisecondsSinceEpoch(map['release_date']),
+      releaseDate: DateTime.parse(map['release_date']),
       revenue: map['revenue']?.toInt() ?? 0,
       runtime: map['runtime']?.toInt() ?? 0,
       status: map['status'] ?? '',
@@ -158,70 +111,11 @@ class MovieDetail {
       video: map['video'] ?? false,
       voteAverage: map['vote_average']?.toDouble() ?? 0.0,
       voteCount: map['vote_count']?.toInt() ?? 0,
+      ageRating: map['release_dates'] ?? '',
     );
   }
 
   String toJson() => json.encode(toMap());
 
   factory MovieDetail.fromJson(String source) => MovieDetail.fromMap(json.decode(source));
-
-  @override
-  String toString() {
-    return 'MovieDetail(adult: $adult, backdropPath: $backdropPath, belongsToCollection: $belongsToCollection, budget: $budget, genres: $genres, homepage: $homepage, id: $id, imdbId: $imdbId, originalLanguage: $originalLanguage, originalTitle: $originalTitle, overview: $overview, popularity: $popularity, posterPath: $posterPath, releaseDate: $releaseDate, revenue: $revenue, runtime: $runtime, status: $status, tagline: $tagline, title: $title, video: $video, voteAverage: $voteAverage, voteCount: $voteCount)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-  
-    return other is MovieDetail &&
-      other.adult == adult &&
-      other.backdropPath == backdropPath &&
-      other.belongsToCollection == belongsToCollection &&
-      other.budget == budget &&
-      listEquals(other.genres, genres) &&
-      other.homepage == homepage &&
-      other.id == id &&
-      other.imdbId == imdbId &&
-      other.originalLanguage == originalLanguage &&
-      other.originalTitle == originalTitle &&
-      other.overview == overview &&
-      other.popularity == popularity &&
-      other.posterPath == posterPath &&
-      other.releaseDate == releaseDate &&
-      other.revenue == revenue &&
-      other.runtime == runtime &&
-      other.status == status &&
-      other.tagline == tagline &&
-      other.title == title &&
-      other.video == video &&
-      other.voteAverage == voteAverage &&
-      other.voteCount == voteCount;
-  }
-
-  @override
-  int get hashCode {
-    return adult.hashCode ^
-      backdropPath.hashCode ^
-      belongsToCollection.hashCode ^
-      budget.hashCode ^
-      genres.hashCode ^
-      homepage.hashCode ^
-      id.hashCode ^
-      imdbId.hashCode ^
-      originalLanguage.hashCode ^
-      originalTitle.hashCode ^
-      overview.hashCode ^
-      popularity.hashCode ^
-      posterPath.hashCode ^
-      releaseDate.hashCode ^
-      revenue.hashCode ^
-      runtime.hashCode ^
-      status.hashCode ^
-      tagline.hashCode ^
-      title.hashCode ^
-      video.hashCode ^
-      voteAverage.hashCode ^
-      voteCount.hashCode;
-  }
 }
