@@ -4,6 +4,7 @@ import 'package:netflix_clone_ui/core/configurations.dart';
 import 'package:netflix_clone_ui/models/genre.dart';
 import 'package:netflix_clone_ui/models/movie.dart';
 import 'package:netflix_clone_ui/models/movie_detail.dart';
+import 'package:netflix_clone_ui/models/season.dart';
 import 'package:netflix_clone_ui/models/tvshow.dart';
 import 'package:netflix_clone_ui/models/tvshow_detail.dart';
 
@@ -82,6 +83,19 @@ class VideoRepository {
       response.data['content_ratings'] = map['rating'];
       final tvshow = TvshowDetail.fromMap(response.data);
       return tvshow;
+    } on DioError catch (error) {
+      throw Exception(
+          "An error has occurred. Status code: ${error.response!.statusCode}");
+    }
+  }
+
+  Future<Season> getTvshowSeason(int idTvshow, int numberOfSeason) async {
+    try {
+      final response = await _dio
+          .get('/tv/$idTvshow/season/$numberOfSeason?language=en-US');
+     
+      final season = Season.fromMap(response.data);
+      return season;
     } on DioError catch (error) {
       throw Exception(
           "An error has occurred. Status code: ${error.response!.statusCode}");
