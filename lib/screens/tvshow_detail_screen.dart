@@ -239,8 +239,8 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
                   height: _controller.index == 0
                       ? ((100 * 9 / 16) + 38) * 8
                       : _controller.index == 1
-                          ? ((sizeScreen.width - 20) / 3) * 6 + 15
-                          : ((sizeScreen.width - 20) * (9 / 16) + 29) * 3 + 20,
+                          ? ((sizeScreen.width - 20) * (9 / 16) + 32) * 3
+                          : ((sizeScreen.width - 20) / 3) * 6 + 15,
                   padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
                   child: TabBarView(
                     physics: NeverScrollableScrollPhysics(),
@@ -275,7 +275,7 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
                                               padding: const EdgeInsets.only(
                                                   bottom: 8, right: 8),
                                               child: Container(
-                                                height: 100 *127/227,
+                                                height: 100 * 127 / 227,
                                                 width: 100,
                                                 decoration: BoxDecoration(
                                                   image: DecorationImage(
@@ -399,34 +399,48 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
                         },
                       ),
                       // More like this tab
-                      GridView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          mainAxisSpacing: 5,
-                          crossAxisSpacing: 5,
-                          mainAxisExtent: ((sizeScreen.width - 20) / 3) * 1.5,
-                        ),
-                        itemCount: 12,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => TvshowDetailScreen(
-                              //       Data.tvshowsAndTvShowInfo[0],
-                              //     ),
-                              //   ),
-                              // );
-                            },
-                            child: Image.asset(
-                              Data.imagesVideos[index],
-                              fit: BoxFit.fitHeight,
-                              // height: (sizeScreen.width / 3) * 100 / 66,
-                            ),
-                          );
-                          // return Container(color: Colors.grey,);
+                      FutureBuilder<List<Map<String, dynamic>>>(
+                        future:
+                            _videoRepository.getTvshowSimilar(widget.tvshow.id),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return LoadingWidget();
+                          } else {
+                            
+                            return GridView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                mainAxisSpacing: 5,
+                                crossAxisSpacing: 5,
+                                mainAxisExtent:
+                                    ((sizeScreen.width - 20) / 3) * 1.5,
+                              ),
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (context, index) {
+                                Map video =  snapshot.data![index];
+                                return GestureDetector(
+                                  onTap: () {
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) => TvshowDetailScreen(
+                                    //       Data.tvshowsAndTvShowInfo[0],
+                                    //     ),
+                                    //   ),
+                                    // );
+                                  },
+                                  child: Image.network(
+                                    "$imageBaseUrl$minImageSize${video['posterPath']}",
+                                    fit: BoxFit.fitHeight,
+                                    // height: (sizeScreen.width / 3) * 100 / 66,
+                                  ),
+                                );
+                                // return Container(color: Colors.grey,);
+                              },
+                            );
+                          }
                         },
                       ),
                     ],
