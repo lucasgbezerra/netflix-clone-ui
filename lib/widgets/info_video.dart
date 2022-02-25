@@ -20,14 +20,13 @@ class InfoVideo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 5,
-      crossAxisAlignment: WrapCrossAlignment.center,
+    return Row(
       children: [
         Text(
           releaseDate.year.toString(),
           style: AppTextStyles.descriptionMovieText,
         ),
+        SizedBox(width: 5),
         Container(
           height: 20,
           // Cor condizente com a classificação
@@ -41,10 +40,12 @@ class InfoVideo extends StatelessWidget {
             ),
           ),
         ),
+        SizedBox(width: 5),
         Text(
           seasons == null ? formatRuntime(runtime!) : "$seasons Seasons",
           style: AppTextStyles.descriptionMovieText,
         ),
+        SizedBox(width: 5),
         Container(
             child: showQuality
                 ? Container(
@@ -65,12 +66,12 @@ class InfoVideo extends StatelessWidget {
     );
   }
 
-  String formatRuntime(int runtime){
+  String formatRuntime(int runtime) {
     final duration = Duration(minutes: runtime);
-    if (runtime < 60){
+    if (runtime < 60) {
       return "${duration.inMinutes}m";
-    }else{
-      return "${duration.inHours}h ${duration.inMinutes - duration.inHours*60}m";
+    } else {
+      return "${duration.inHours}h ${duration.inMinutes - duration.inHours * 60}m";
     }
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_clone_ui/provider/data.dart';
-import 'package:netflix_clone_ui/screens/video_detail_screen.dart';
+import 'package:netflix_clone_ui/screens/movie_detail_screen.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 import 'package:netflix_clone_ui/widgets/options_modal_bottom_sheet.dart';
@@ -121,14 +121,14 @@ class ContinueWatchingVideoList extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => VideoDetailScreen(
-                                      Data.moviesAndTvShowInfo[0],
-                                    ),
-                                  ),
-                                );
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) => MovieDetailScreen(
+                                //       Data.moviesAndTvShowInfo[0],
+                                //     ),
+                                //   ),
+                                // );
                               },
                               child: Icon(
                                 Icons.info_outline,
