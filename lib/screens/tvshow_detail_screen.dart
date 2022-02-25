@@ -13,6 +13,7 @@ import 'package:netflix_clone_ui/core/configurations.dart';
 import 'package:netflix_clone_ui/widgets/loading_widgeet.dart';
 import 'package:netflix_clone_ui/repositories/video_repository.dart';
 import 'package:netflix_clone_ui/core/configurations.dart';
+import 'package:netflix_clone_ui/widgets/tab_more_like_this.dart';
 
 class TvshowDetailScreen extends StatefulWidget {
   final TvshowDetail tvshow;
@@ -335,6 +336,7 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
                           }
                         },
                       ),
+                      TabMoreLikeThis(id: widget.tvshow.id),
                       // Trailer tab bar
                       ListView.builder(
                         padding: EdgeInsets.all(10),
@@ -399,50 +401,6 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
                         },
                       ),
                       // More like this tab
-                      FutureBuilder<List<Map<String, dynamic>>>(
-                        future:
-                            _videoRepository.getTvshowSimilar(widget.tvshow.id),
-                        builder: (context, snapshot) {
-                          if (!snapshot.hasData) {
-                            return LoadingWidget();
-                          } else {
-                            
-                            return GridView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                mainAxisSpacing: 5,
-                                crossAxisSpacing: 5,
-                                mainAxisExtent:
-                                    ((sizeScreen.width - 20) / 3) * 1.5,
-                              ),
-                              itemCount: snapshot.data!.length,
-                              itemBuilder: (context, index) {
-                                Map video =  snapshot.data![index];
-                                return GestureDetector(
-                                  onTap: () {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) => TvshowDetailScreen(
-                                    //       Data.tvshowsAndTvShowInfo[0],
-                                    //     ),
-                                    //   ),
-                                    // );
-                                  },
-                                  child: Image.network(
-                                    "$imageBaseUrl$minImageSize${video['posterPath']}",
-                                    fit: BoxFit.fitHeight,
-                                    // height: (sizeScreen.width / 3) * 100 / 66,
-                                  ),
-                                );
-                                // return Container(color: Colors.grey,);
-                              },
-                            );
-                          }
-                        },
-                      ),
                     ],
                   ),
                 ),
