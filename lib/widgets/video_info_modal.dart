@@ -25,8 +25,8 @@ class VideoInfoModal extends StatelessWidget {
     final _videoRepository = VideoRepository();
     return Container(
       height: sizeScreen.height * 0.35,
-      child: FutureBuilder<MovieDetail>(
-        future:  _videoRepository.getMovieDetail(videoId),
+      child:  FutureBuilder<dynamic>(
+        future: isMovie ? _videoRepository.getMovieDetail(videoId) : _videoRepository.getTvshowDetail(videoId),
         builder: (context, snapshot) {
           if(!snapshot.hasData) {
             return LoadingWidget();
@@ -46,7 +46,7 @@ class VideoInfoModal extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5),
                         image: DecorationImage(
                           image: NetworkImage(
-                            "$imageBaseUrl$minImageSize${snapshot.data?.posterPath}",
+                            "$imageBaseUrl$medImageSize${snapshot.data?.posterPath}",
                           ),
                         ),
                       ),
@@ -60,16 +60,17 @@ class VideoInfoModal extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(bottom: 5),
                             child: Text(
-                              snapshot.data!.title,
+                              snapshot.data!.originalTitle,
                               style: AppTextStyles.titleMovieText,
                               overflow: TextOverflow.fade,
                             ),
                           ),
                           // TODO: Obter infos do Movie/TvShow
                           InfoVideo(
-                            ageRating: "TV-MA",
+                            ageRating: snapshot.data!.ageRating,
                             releaseDate: snapshot.data!.releaseDate,
-                            runtime: snapshot.data!.runtime,
+                            runtime: isMovie ? snapshot.data.runtime : null,
+                            seasons:  !isMovie ? snapshot.data.numberOfSeasons : null,
                           ),
                           Container(
                             width: sizeScreen.width * 0.6,

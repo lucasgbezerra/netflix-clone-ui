@@ -8,7 +8,7 @@ class InfoVideo extends StatelessWidget {
   final DateTime releaseDate;
   final String ageRating;
   final int? runtime;
-  final String? seasons;
+  final int? seasons;
   InfoVideo(
       {Key? key,
       this.showQuality = false,
@@ -42,7 +42,7 @@ class InfoVideo extends StatelessWidget {
           ),
         ),
         Text(
-          seasons ?? formatRuntime(runtime!),
+          seasons == null ? formatRuntime(runtime!) : "$seasons Seasons",
           style: AppTextStyles.descriptionMovieText,
         ),
         Container(
