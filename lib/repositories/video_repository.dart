@@ -117,4 +117,20 @@ class VideoRepository {
           "An error has occurred. Status code: ${error.response!.statusCode}");
     }
   }
+
+  Future<List<Map<String, dynamic>>> getMovieSimilar(int idMovie) async {
+    try {
+      final response = await _dio.get('/movie/$idMovie/similar?$filter&page=1');
+
+      List<Map<String, dynamic>> moreLikeThis = [];
+      response.data['results'].forEach((e) {
+        moreLikeThis.add({'id': e['id'], 'posterPath': e['poster_path']});
+      });
+
+      return moreLikeThis;
+    } on DioError catch (error) {
+      throw Exception(
+          "An error has occurred. Status code: ${error.response!.statusCode}");
+    }
+  }
 }
