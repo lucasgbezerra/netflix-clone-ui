@@ -5,6 +5,7 @@ import 'package:netflix_clone_ui/models/genre.dart';
 import 'package:netflix_clone_ui/models/movie.dart';
 import 'package:netflix_clone_ui/models/movie_detail.dart';
 import 'package:netflix_clone_ui/models/tvshow.dart';
+import 'package:netflix_clone_ui/models/tvshow_detail.dart';
 
 class VideoRepository {
   final Dio _dio = Dio(dioOptions);
@@ -66,6 +67,21 @@ class VideoRepository {
       final response = await _dio.get('/movie/$id&language=en-US');
       final movie = MovieDetail.fromMap(response.data);
       return movie;
+    } on DioError catch (error) {
+      throw Exception(
+          "An error has occurred. Status code: ${error.response!.statusCode}");
+    }
+  }
+
+  Future<TvshowDetail> getTvshowDetail(int id) async {
+    try {
+      final response = await _dio
+          .get('/tv/$id?language=en-US&append_to_response=content_ratings');
+      final map = response.data['content_ratings']['results']
+          .firstWhere((e) => e['iso_3166_1'] == "US");
+      response.data['content_ratings'] = map['rating'];
+      final tvshow = TvshowDetail.fromMap(response.data);
+      return tvshow;
     } on DioError catch (error) {
       throw Exception(
           "An error has occurred. Status code: ${error.response!.statusCode}");
