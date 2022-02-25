@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netflix_clone_ui/models/tvshow_detail.dart';
 import 'package:netflix_clone_ui/provider/data.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
@@ -7,16 +8,17 @@ import 'package:netflix_clone_ui/widgets/appBar_home.dart';
 import 'package:netflix_clone_ui/widgets/button_icon_text_horizontal.dart';
 import 'package:netflix_clone_ui/widgets/button_icon_text_vertical.dart';
 import 'package:netflix_clone_ui/widgets/info_video.dart';
+import 'package:netflix_clone_ui/core/configurations.dart';
 
-class VideoDetailScreen extends StatefulWidget {
-  final Map<String, String> movie;
-  const VideoDetailScreen(this.movie, {Key? key}) : super(key: key);
+class TvshowDetailScreen extends StatefulWidget {
+  final TvshowDetail tvshow;
+  const TvshowDetailScreen(this.tvshow, {Key? key}) : super(key: key);
 
   @override
-  State<VideoDetailScreen> createState() => _VideoDetailScreenState();
+  State<TvshowDetailScreen> createState() => _TvshowDetailScreenState();
 }
 
-class _VideoDetailScreenState extends State<VideoDetailScreen>
+class _TvshowDetailScreenState extends State<TvshowDetailScreen>
     with SingleTickerProviderStateMixin {
   late final TabController _controller;
 
@@ -65,7 +67,13 @@ class _VideoDetailScreenState extends State<VideoDetailScreen>
           // Trailer
           Container(
             height: sizeScreen.width * (9 / 16),
-            color: Colors.red,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage(
+                    '$imageBaseUrl$medImageSize${widget.tvshow.backdropPath}',
+                  ),
+                  fit: BoxFit.cover),
+            ),
           ),
           Expanded(
             child: ListView(
@@ -79,13 +87,15 @@ class _VideoDetailScreenState extends State<VideoDetailScreen>
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: Text(
-                          widget.movie["title"]!,
+                          widget.tvshow.originalTitle,
                           style: AppTextStyles.titleMovieText,
                         ),
                       ),
-                      InfoMovie(
-                        isComplete: true,
-                        isMovie: true,
+                      InfoVideo(
+                        showQuality: true,
+                        ageRating: widget.tvshow.ageRating,
+                        releaseDate: widget.tvshow.releaseDate,
+                        seasons: widget.tvshow.numberOfSeasons,
                       ),
                       SizedBox(height: 8),
                       ButtonIconTextHorizontal(
@@ -104,7 +114,7 @@ class _VideoDetailScreenState extends State<VideoDetailScreen>
                       ),
                       SizedBox(height: 8),
                       Text(
-                        "Text about the movie or TvShow. Text about the movie or TvShow. Text about the movie or TvShow.",
+                        widget.tvshow.overview,
                         style: AppTextStyles.descriptionMovieText,
                       ),
                       GestureDetector(
@@ -368,14 +378,14 @@ class _VideoDetailScreenState extends State<VideoDetailScreen>
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => VideoDetailScreen(
-                                    Data.moviesAndTvShowInfo[0],
-                                  ),
-                                ),
-                              );
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => TvshowDetailScreen(
+                              //       Data.tvshowsAndTvShowInfo[0],
+                              //     ),
+                              //   ),
+                              // );
                             },
                             child: Image.asset(
                               Data.imagesVideos[index],
