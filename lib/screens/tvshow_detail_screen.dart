@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netflix_clone_ui/models/episode.dart';
+import 'package:netflix_clone_ui/models/season.dart';
 import 'package:netflix_clone_ui/models/tvshow_detail.dart';
 import 'package:netflix_clone_ui/provider/data.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
-import 'package:netflix_clone_ui/widgets/appBar_home.dart';
 import 'package:netflix_clone_ui/widgets/button_icon_text_horizontal.dart';
 import 'package:netflix_clone_ui/widgets/button_icon_text_vertical.dart';
 import 'package:netflix_clone_ui/widgets/info_video.dart';
+import 'package:netflix_clone_ui/core/configurations.dart';
+import 'package:netflix_clone_ui/widgets/loading_widgeet.dart';
+import 'package:netflix_clone_ui/repositories/video_repository.dart';
 import 'package:netflix_clone_ui/core/configurations.dart';
 
 class TvshowDetailScreen extends StatefulWidget {
@@ -21,11 +25,14 @@ class TvshowDetailScreen extends StatefulWidget {
 class _TvshowDetailScreenState extends State<TvshowDetailScreen>
     with SingleTickerProviderStateMixin {
   late final TabController _controller;
+  late final VideoRepository _videoRepository;
+  int idSeason = 1;
 
   @override
   void initState() {
     super.initState();
     _controller = TabController(length: 3, vsync: this);
+    _videoRepository = VideoRepository();
   }
 
   @override
@@ -240,67 +247,92 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
                     controller: _controller,
                     children: [
                       // EPISODES
-                      ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: 8,
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () {},
-                            child: Container(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            bottom: 8, right: 8),
-                                        child: Container(
-                                          height: 100 * 9 / 16,
-                                          width: 100,
-                                          color: Colors.red,
-                                        ),
-                                      ),
-                                      Text.rich(
-                                        TextSpan(
-                                          text: "$index. Episode $index\n",
-                                          style: GoogleFonts.roboto(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.white),
+
+                      FutureBuilder<Season>(
+                        future: _videoRepository.getTvshowSeason(
+                            widget.tvshow.id, idSeason),
+                        builder: (context, snapshot) {
+                          if (!snapshot.hasData) {
+                            return LoadingWidget();
+                          } else {
+                            return ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: snapshot.data!.episodes.length,
+                              itemBuilder: (context, index) {
+                                List<Episode> episodes =
+                                    snapshot.data!.episodes;
+                                return InkWell(
+                                  onTap: () {},
+                                  child: Container(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
                                           children: [
-                                            TextSpan(
-                                              text: "57m",
-                                              style: GoogleFonts.roboto(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Colors.grey),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 8, right: 8),
+                                              child: Container(
+                                                height: 100 *127/227,
+                                                width: 100,
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                    image: NetworkImage(
+                                                        '$imageBaseUrl$medImageSize${episodes[index].stillPath}'),
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Text.rich(
+                                              TextSpan(
+                                                text:
+                                                    "${episodes[index].episodeNumber}. ${episodes[index].name}\n",
+                                                style: GoogleFonts.roboto(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: Colors.white),
+                                                children: [
+                                                  TextSpan(
+                                                    // TODO: Adicionar o runtime do ep
+                                                    text: "57m",
+                                                    style: GoogleFonts.roboto(
+                                                        fontSize: 10,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Colors.grey),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Spacer(),
+                                            IconButton(
+                                              onPressed: () {},
+                                              icon: Icon(
+                                                Icons.download,
+                                                color: Colors.white,
+                                              ),
                                             ),
                                           ],
                                         ),
-                                      ),
-                                      Spacer(),
-                                      IconButton(
-                                        onPressed: () {},
-                                        icon: Icon(
-                                          Icons.download,
-                                          color: Colors.white,
+                                        Text(
+                                          episodes[index].overview,
+                                          maxLines: 3,
+                                          overflow: TextOverflow.fade,
+                                          style: GoogleFonts.roboto(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.grey),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                  Text(
-                                    "This space is to put the synopsis of the episode",
-                                    style: GoogleFonts.roboto(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.grey),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
+                                );
+                              },
+                            );
+                          }
                         },
                       ),
                       // Trailer tab bar
@@ -366,6 +398,7 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
                           );
                         },
                       ),
+                      // More like this tab
                       GridView.builder(
                         physics: NeverScrollableScrollPhysics(),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
