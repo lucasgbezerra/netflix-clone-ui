@@ -5,8 +5,8 @@ import 'package:netflix_clone_ui/widgets/loading_widgeet.dart';
 
 class TabMoreLikeThis extends StatelessWidget {
   final int id;
-
-  const TabMoreLikeThis({Key? key, required this.id}) : super(key: key);
+  final Function(int) function;
+  const TabMoreLikeThis({Key? key, required this.id, required this.function}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class TabMoreLikeThis extends StatelessWidget {
     final _videoRepository = VideoRepository();
 
     return FutureBuilder<List<Map<String, dynamic>>>(
-      future: _videoRepository.getTvshowSimilar(id),
+      future: function(id),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return LoadingWidget();

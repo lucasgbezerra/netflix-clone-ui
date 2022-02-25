@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:netflix_clone_ui/models/popular_movies.dart';
-import 'package:netflix_clone_ui/models/popular_tvshows.dart';
+import 'package:netflix_clone_ui/models/movie.dart';
+import 'package:netflix_clone_ui/models/tvshow.dart';
 import 'package:netflix_clone_ui/provider/data.dart';
 import 'package:netflix_clone_ui/repositories/video_repository.dart';
-import 'package:netflix_clone_ui/screens/video_detail_screen.dart';
+import 'package:netflix_clone_ui/screens/movie_detail_screen.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/widgets/appBar_home.dart';
 import 'package:netflix_clone_ui/widgets/bottom_appBar_home.dart';
@@ -71,19 +71,20 @@ class HomeScreen extends StatelessWidget {
                       icon: Icons.info_outline,
                       text: "Info",
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => VideoDetailScreen(
-                              Data.moviesAndTvShowInfo[0],
-                            ),
-                          ),
-                        );
+                        // TODO: Criar requisição para o filme banner
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => MovieDetailScreen(
+                        //       Data.moviesAndTvShowInfo[0],
+                        //     ),
+                        //   ),
+                        // );
                       },
                     )
                   ],
                 ),
-                FutureBuilder<PopularMovies?>(
+                FutureBuilder<List<Movie>>(
                   future: _videoRepository.getPopularMovies(1),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
@@ -93,14 +94,14 @@ class HomeScreen extends StatelessWidget {
                         title: "Movies",
                         height: 210,
                         width: 140,
-                        videos: snapshot.data!.results,
+                        videos: snapshot.data!,
                       );
                     }
                   },
                 ),
 
                 ContinueWatchingVideoList(movies: Data.imagesVideos),
-               FutureBuilder<PopularTvshows?>(
+               FutureBuilder<List<Tvshow>>(
                   future: _videoRepository.getPopularTvShows(1),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
@@ -110,13 +111,13 @@ class HomeScreen extends StatelessWidget {
                         title: "Tv Shows",
                         height: 210,
                         width: 140,
-                        videos: snapshot.data!.results,
+                        videos: snapshot.data!,
                       );
                     }
                   },
                 ),
-                  FutureBuilder<PopularMovies?>(
-                  future: _videoRepository.getPopularMovieGenre("Action"),
+                  FutureBuilder<List<Movie>>(
+                  future: _videoRepository.getPopularMovieByGenre(18),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
                       return const LoadingWidget();
@@ -125,7 +126,7 @@ class HomeScreen extends StatelessWidget {
                         title: "Action Movies",
                         height: 210,
                         width: 140,
-                        videos: snapshot.data!.results,
+                        videos: snapshot.data!,
                       );
                     }
                   },

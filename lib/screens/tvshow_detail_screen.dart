@@ -336,7 +336,6 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
                           }
                         },
                       ),
-                      TabMoreLikeThis(id: widget.tvshow.id),
                       // Trailer tab bar
                       ListView.builder(
                         padding: EdgeInsets.all(10),
@@ -401,6 +400,10 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
                         },
                       ),
                       // More like this tab
+                      TabMoreLikeThis(
+                        id: widget.tvshow.id,
+                        function: _videoRepository.getTvshowSimilar,
+                      ),
                     ],
                   ),
                 ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netflix_clone_ui/models/movie_detail.dart';
 import 'package:netflix_clone_ui/provider/data.dart';
+import 'package:netflix_clone_ui/repositories/video_repository.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 import 'package:netflix_clone_ui/widgets/appBar_home.dart';
@@ -9,6 +10,7 @@ import 'package:netflix_clone_ui/widgets/button_icon_text_horizontal.dart';
 import 'package:netflix_clone_ui/widgets/button_icon_text_vertical.dart';
 import 'package:netflix_clone_ui/widgets/info_video.dart';
 import 'package:netflix_clone_ui/core/configurations.dart';
+import 'package:netflix_clone_ui/widgets/tab_more_like_this.dart';
 
 class MovieDetailScreen extends StatefulWidget {
   final MovieDetail movie;
@@ -21,11 +23,15 @@ class MovieDetailScreen extends StatefulWidget {
 class _MovieDetailScreenState extends State<MovieDetailScreen>
     with SingleTickerProviderStateMixin {
   late final TabController _controller;
+  late final VideoRepository _videoRepository;
+
 
   @override
   void initState() {
     super.initState();
     _controller = TabController(length: 2, vsync: this);
+    _videoRepository = VideoRepository();
+
   }
 
   @override
@@ -69,10 +75,9 @@ class _MovieDetailScreenState extends State<MovieDetailScreen>
             height: sizeScreen.width * (9 / 16),
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(
-                    '$imageBaseUrl$medImageSize${widget.movie.backdropPath}'),
-                    fit: BoxFit.cover
-              ),
+                  image: NetworkImage(
+                      '$imageBaseUrl$medImageSize${widget.movie.backdropPath}'),
+                  fit: BoxFit.cover),
             ),
           ),
           Expanded(
@@ -296,36 +301,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen>
                           );
                         },
                       ),
-                      GridView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          mainAxisSpacing: 5,
-                          crossAxisSpacing: 5,
-                          mainAxisExtent: ((sizeScreen.width - 20) / 3) * 1.5,
-                        ),
-                        itemCount: 12,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => MovieDetailScreen(
-                              //       Data.moviesAndTvShowInfo[0],
-                              //     ),
-                              //   ),
-                              // );
-                            },
-                            child: Image.asset(
-                              Data.imagesVideos[index],
-                              fit: BoxFit.fitHeight,
-                              // height: (sizeScreen.width / 3) * 100 / 66,
-                            ),
-                          );
-                          // return Container(color: Colors.grey,);
-                        },
-                      ),
+                      TabMoreLikeThis(id: widget.movie.id, function:_videoRepository.getMovieSimilar,),
                     ],
                   ),
                 ),
