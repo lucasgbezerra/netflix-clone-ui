@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:netflix_clone_ui/models/episode.dart';
-import 'package:netflix_clone_ui/models/season.dart';
 import 'package:netflix_clone_ui/models/tvshow_detail.dart';
-import 'package:netflix_clone_ui/provider/data.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 import 'package:netflix_clone_ui/widgets/button_icon_text_horizontal.dart';
 import 'package:netflix_clone_ui/widgets/button_icon_text_vertical.dart';
 import 'package:netflix_clone_ui/widgets/info_video.dart';
 import 'package:netflix_clone_ui/core/configurations.dart';
-import 'package:netflix_clone_ui/widgets/loading_widgeet.dart';
 import 'package:netflix_clone_ui/repositories/video_repository.dart';
-import 'package:netflix_clone_ui/core/configurations.dart';
+import 'package:netflix_clone_ui/widgets/tab_episodes.dart';
 import 'package:netflix_clone_ui/widgets/tab_more_like_this.dart';
+import 'package:netflix_clone_ui/widgets/tab_trailer.dart';
 
 class TvshowDetailScreen extends StatefulWidget {
   final TvshowDetail tvshow;
@@ -77,10 +74,21 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
             height: sizeScreen.width * (9 / 16),
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: NetworkImage(
-                    '$imageBaseUrl$medImageSize${widget.tvshow.backdropPath}',
-                  ),
-                  fit: BoxFit.cover),
+                image: NetworkImage(
+                  '$imageBaseUrl$medImageSize${widget.tvshow.backdropPath}',
+                ),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Align(
+              alignment: Alignment.center,
+              child: GestureDetector(
+                onTap: () {},
+                child: Icon(
+                  Icons.play_arrow_outlined,
+                  color: AppColor.secundary,
+                ),
+              ),
             ),
           ),
           Expanded(
@@ -248,157 +256,9 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
                     controller: _controller,
                     children: [
                       // EPISODES
-
-                      FutureBuilder<Season>(
-                        future: _videoRepository.getTvshowSeason(
-                            widget.tvshow.id, idSeason),
-                        builder: (context, snapshot) {
-                          if (!snapshot.hasData) {
-                            return LoadingWidget();
-                          } else {
-                            return ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: snapshot.data!.episodes.length,
-                              itemBuilder: (context, index) {
-                                List<Episode> episodes =
-                                    snapshot.data!.episodes;
-                                return InkWell(
-                                  onTap: () {},
-                                  child: Container(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  bottom: 8, right: 8),
-                                              child: Container(
-                                                height: 100 * 127 / 227,
-                                                width: 100,
-                                                decoration: BoxDecoration(
-                                                  image: DecorationImage(
-                                                    image: NetworkImage(
-                                                        '$imageBaseUrl$medImageSize${episodes[index].stillPath}'),
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Text.rich(
-                                              TextSpan(
-                                                text:
-                                                    "${episodes[index].episodeNumber}. ${episodes[index].name}\n",
-                                                style: GoogleFonts.roboto(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Colors.white),
-                                                children: [
-                                                  TextSpan(
-                                                    // TODO: Adicionar o runtime do ep
-                                                    text: "57m",
-                                                    style: GoogleFonts.roboto(
-                                                        fontSize: 10,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: Colors.grey),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Spacer(),
-                                            IconButton(
-                                              onPressed: () {},
-                                              icon: Icon(
-                                                Icons.download,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Text(
-                                          episodes[index].overview,
-                                          maxLines: 3,
-                                          overflow: TextOverflow.fade,
-                                          style: GoogleFonts.roboto(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w400,
-                                              color: Colors.grey),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          }
-                        },
-                      ),
+                      TabEpisodes(id: widget.tvshow.id, numOfSeason: idSeason),
                       // Trailer tab bar
-                      ListView.builder(
-                        padding: EdgeInsets.all(10),
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: 3,
-                        // separatorBuilder: (context, index)=>SizedBox(height: 10,),
-                        itemBuilder: (context, index) {
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Stack(
-                                children: [
-                                  Container(
-                                    height: (sizeScreen.width - 20) * (9 / 16),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.red,
-                                    ),
-                                    // padding: EdgfeInsets.only(bottom: 10),
-                                  ),
-                                  // Botão play
-                                  // TODO: Transformar o botão de play em um widget
-
-                                  Positioned.fill(
-                                    child: Center(
-                                      // alignment: Alignment.center,
-                                      child: Container(
-                                        height: 40,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.black.withOpacity(0.5),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned.fill(
-                                    child: Center(
-                                      // alignment: Alignment.center,
-                                      child: Icon(
-                                        Icons.play_circle_outline_outlined,
-                                        size: 50,
-                                        color: AppColor.secundary,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 5, bottom: 10),
-                                child: Text(
-                                  "Titulo trailer $index",
-                                  style: GoogleFonts.roboto(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              )
-                            ],
-                          );
-                        },
-                      ),
+                      TabTrailer(videos: []),
                       // More like this tab
                       TabMoreLikeThis(
                         id: widget.tvshow.id,
