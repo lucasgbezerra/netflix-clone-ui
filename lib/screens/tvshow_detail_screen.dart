@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netflix_clone_ui/models/tvshow_detail.dart';
+import 'package:netflix_clone_ui/screens/seasons_screen.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 import 'package:netflix_clone_ui/widgets/button_icon_text_horizontal.dart';
@@ -82,10 +83,11 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
             ),
             child: Align(
               alignment: Alignment.center,
-              child: GestureDetector(
+              child: InkWell(
                 onTap: () {},
                 child: Icon(
-                  Icons.play_arrow_outlined,
+                  Icons.play_circle_fill_rounded,
+                  size: 50,
                   color: AppColor.secundary,
                 ),
               ),
@@ -218,6 +220,11 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
                   color: AppColor.terciary,
                 ),
                 TabBar(
+                  onTap: (value) {
+                    setState(() {
+                      _controller.index = value;
+                    });
+                  },
                   controller: _controller,
                   indicator: UnderlineTabIndicator(
                     borderSide: BorderSide(
@@ -244,6 +251,27 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
                     ),
                   ],
                 ),
+                _controller.index == 0
+                    ? ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          primary: AppColor.bottomNavBarBackground,
+                        ),
+                        onPressed: () async {
+                          final season = await Navigator.push(
+                            context,
+                            SeasonsScreen(numberOfSeasons: widget.tvshow.numberOfSeasons),
+                          );
+                          
+                          setState(() {
+                            idSeason = season;
+                          });
+                        },
+                        icon: Text("Season $idSeason"),
+                        label: Icon(
+                          Icons.arrow_drop_down,
+                        ),
+                      )
+                    : SizedBox.shrink(),
                 Container(
                   height: _controller.index == 0
                       ? ((100 * 9 / 16) + 38) * 8
@@ -256,7 +284,15 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
                     controller: _controller,
                     children: [
                       // EPISODES
+                      // Column(
+                      //   children: [
+
+                      //     TabEpisodes(id: widget.tvshow.id, numOfSeason: idSeason),
+
+                      //   ],
+                      // )
                       TabEpisodes(id: widget.tvshow.id, numOfSeason: idSeason),
+
                       // Trailer tab bar
                       TabTrailer(videos: []),
                       // More like this tab
