@@ -54,7 +54,7 @@ class VideoRepository {
   Future<List<Genre>> getGenres() async {
     try {
       final response = await _dio.get('/genre/movie/list?language=en-US');
-      final genresJson = response.data['results'] as List;
+      final genresJson = response.data['genres'] as List;
       List<Genre> genres = genresJson.map((map) => Genre.fromMap(map)).toList();
       return genres;
     } on DioError catch (error) {
@@ -128,6 +128,19 @@ class VideoRepository {
       });
 
       return moreLikeThis;
+    } on DioError catch (error) {
+      throw Exception(
+          "An error has occurred. Status code: ${error.response!.statusCode}");
+    }
+  }
+
+  Future<List<Genre>> getTvshowGenres() async {
+    try {
+      final response = await _dio.get('/genre/tv/list?language=en-US');
+
+      final genresJson = response.data['genres'] as List;
+      List<Genre> genres = genresJson.map((map) => Genre.fromMap(map)).toList();
+      return genres;
     } on DioError catch (error) {
       throw Exception(
           "An error has occurred. Status code: ${error.response!.statusCode}");
