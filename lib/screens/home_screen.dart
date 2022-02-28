@@ -12,6 +12,7 @@ import 'package:netflix_clone_ui/widgets/button_icon_text_vertical.dart';
 import 'package:netflix_clone_ui/widgets/category_list_banner.dart';
 import 'package:netflix_clone_ui/widgets/continue_watching_video_list.dart';
 import 'package:netflix_clone_ui/widgets/loading_widgeet.dart';
+import 'package:netflix_clone_ui/widgets/movie_banner.dart';
 import 'package:netflix_clone_ui/widgets/video_list.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -28,62 +29,8 @@ class HomeScreen extends StatelessWidget {
           children: [
             Column(
               children: [
-                Container(
-                  height: screenSize.height * 0.66,
-                  width: screenSize.width,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(
-                          "assets/posters/dont_look_up_poster.jpg",
-                        ),
-                        fit: BoxFit.cover),
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          AppColor.background.withOpacity(0.3),
-                          AppColor.background.withOpacity(0.8)
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                CategoryListBanner(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ButtonIconTextVertical(
-                      icon: Icons.add,
-                      text: "My List",
-                      onTap: () {},
-                    ),
-                    ButtonIconTextHorizontal(
-                      text: "Play",
-                      icon: Icons.play_arrow,
-                      onPressed: () {},
-                      size: Size(30, 35),
-                    ),
-                    ButtonIconTextVertical(
-                      icon: Icons.info_outline,
-                      text: "Info",
-                      onTap: () {
-                        // TODO: Criar requisição para o filme banner
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => MovieDetailScreen(
-                        //       Data.moviesAndTvShowInfo[0],
-                        //     ),
-                        //   ),
-                        // );
-                      },
-                    )
-                  ],
-                ),
+                MovieBanner(),
+                
                 FutureBuilder<List<Movie>>(
                   future: _videoRepository.getPopularMovies(1),
                   builder: (context, snapshot) {
