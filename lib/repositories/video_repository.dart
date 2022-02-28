@@ -10,7 +10,7 @@ import 'package:netflix_clone_ui/models/tvshow_detail.dart';
 
 class VideoRepository {
   final Dio _dio = Dio(dioOptions);
-  final String filter = 'language=en-US&with_watch_providers=8&watch_region=US';
+  final String filter = 'with_watch_providers=8&watch_region=US&language=en-US';
 
   Future<List<Movie>> getPopularMovies(int page) async {
     try {
@@ -142,6 +142,17 @@ class VideoRepository {
       List<Genre> genres = genresJson.map((map) => Genre.fromMap(map)).toList();
       return genres;
     } on DioError catch (error) {
+      throw Exception(
+          "An error has occurred. Status code: ${error.response!.statusCode}");
+    }
+  }
+
+  Future<MovieDetail> getMovieBanner()async{
+    try{
+      final response = await _dio.get('/discover/movie?$filter&sort_by=popularity.desc');
+      final id = response.data['results'][0]['id'];
+       return await getMovieDetail(id);
+    }on DioError catch (error){
       throw Exception(
           "An error has occurred. Status code: ${error.response!.statusCode}");
     }
