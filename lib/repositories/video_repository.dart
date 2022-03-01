@@ -159,9 +159,22 @@ class VideoRepository {
     }
   }
 
-  Future<List<Video>> getSearch(String search, int page)async{
+  Future<List<Video>> getSearchVideos(String search, int page)async{
     try{
       final response = await _dio.get('/search/multi?query=$search&$filter&page=$page&include_adult=true');
+      final videoJson = response.data['results'] as List;
+      List<Video> videos =
+          videoJson.map((map) => Video.fromMap(map)).toList();
+      return videos;
+    }on DioError catch (error){
+      throw Exception(
+          "An error has occurred. Status code: ${error.response!.statusCode}");
+    }
+  }
+
+  Future<List<Video>> getTrendingVideos({int page = 1})async{
+    try{
+      final response = await _dio.get('/trending/all/week?$filter&page=$page');
       final videoJson = response.data['results'] as List;
       List<Video> videos =
           videoJson.map((map) => Video.fromMap(map)).toList();
