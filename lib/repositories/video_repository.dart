@@ -7,6 +7,7 @@ import 'package:netflix_clone_ui/models/movie_detail.dart';
 import 'package:netflix_clone_ui/models/season.dart';
 import 'package:netflix_clone_ui/models/tvshow.dart';
 import 'package:netflix_clone_ui/models/tvshow_detail.dart';
+import 'package:netflix_clone_ui/models/video.dart';
 
 class VideoRepository {
   final Dio _dio = Dio(dioOptions);
@@ -152,6 +153,19 @@ class VideoRepository {
       final response = await _dio.get('/discover/movie?$filter&sort_by=popularity.desc');
       final id = response.data['results'][0]['id'];
        return await getMovieDetail(id);
+    }on DioError catch (error){
+      throw Exception(
+          "An error has occurred. Status code: ${error.response!.statusCode}");
+    }
+  }
+
+  Future<List<Video>> getSearch(String search, int page)async{
+    try{
+      final response = await _dio.get('/search/multi?query=$search&$filter&page=$page&include_adult=true');
+      final videoJson = response.data['results'] as List;
+      List<Video> videos =
+          videoJson.map((map) => Video.fromMap(map)).toList();
+      return videos;
     }on DioError catch (error){
       throw Exception(
           "An error has occurred. Status code: ${error.response!.statusCode}");
