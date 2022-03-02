@@ -50,7 +50,7 @@ class VideoInfoModal extends StatelessWidget {
                           borderRadius: BorderRadius.circular(5),
                           image: DecorationImage(
                             image: NetworkImage(
-                              "$imageBaseUrl$medImageSize${snapshot.data?.posterPath}",
+                              "$imageBaseUrl$minImageSize${snapshot.data?.posterPath}",
                             ),
                           ),
                         ),
