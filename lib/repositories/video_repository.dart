@@ -7,7 +7,6 @@ import 'package:netflix_clone_ui/models/movie_detail.dart';
 import 'package:netflix_clone_ui/models/season.dart';
 import 'package:netflix_clone_ui/models/tvshow.dart';
 import 'package:netflix_clone_ui/models/tvshow_detail.dart';
-import 'package:netflix_clone_ui/models/video.dart';
 
 class VideoRepository {
   final Dio _dio = Dio(dioOptions);
@@ -159,12 +158,18 @@ class VideoRepository {
     }
   }
 
-  Future<List<Video>> getSearchVideos(String search, int page)async{
+  Future<List> getSearchVideos(String search, int page)async{
     try{
       final response = await _dio.get('/search/multi?query=$search&$filter&page=$page&include_adult=true');
       final videoJson = response.data['results'] as List;
-      List<Video> videos =
-          videoJson.map((map) => Video.fromMap(map)).toList();
+       List videos =
+          videoJson.map((map) {
+            if(map['media_type'] == 'tv'){
+              return Tvshow.fromMap(map);
+            }else{
+              return Movie.fromMap(map);
+            }
+          }).toList();
       return videos;
     }on DioError catch (error){
       throw Exception(
@@ -172,12 +177,18 @@ class VideoRepository {
     }
   }
 
-  Future<List<Video>> getTrendingVideos({int page = 1})async{
+  Future<List> getTrendingVideos({int page = 1})async{
     try{
       final response = await _dio.get('/trending/all/week?$filter&page=$page');
       final videoJson = response.data['results'] as List;
-      List<Video> videos =
-          videoJson.map((map) => Video.fromMap(map)).toList();
+      List videos =
+          videoJson.map((map) {
+            if(map['media_type'] == 'tv'){
+              return Tvshow.fromMap(map);
+            }else{
+              return Movie.fromMap(map);
+            }
+          }).toList();
       return videos;
     }on DioError catch (error){
       throw Exception(
