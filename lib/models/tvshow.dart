@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 class Tvshow {
-  final String backdropPath;
+  final String? backdropPath;
   final DateTime firstAirDate;
   final List<int> genreIds;
   final int id;
@@ -17,7 +17,7 @@ class Tvshow {
   final double voteAverage;
   final int voteCount;
   Tvshow({
-    required this.backdropPath,
+    this.backdropPath,
     required this.firstAirDate,
     required this.genreIds,
     required this.id,
@@ -31,38 +31,6 @@ class Tvshow {
     required this.voteAverage,
     required this.voteCount,
   });
-
-  Tvshow copyWith({
-    String? backdropPath,
-    DateTime? firstAirDate,
-    List<int>? genreIds,
-    int? id,
-    String? title,
-    List<String>? originCountry,
-    String? originalLanguage,
-    String? originalTitle,
-    String? overview,
-    double? popularity,
-    String? posterPath,
-    double? voteAverage,
-    int? voteCount,
-  }) {
-    return Tvshow(
-      backdropPath: backdropPath ?? this.backdropPath,
-      firstAirDate: firstAirDate ?? this.firstAirDate,
-      genreIds: genreIds ?? this.genreIds,
-      id: id ?? this.id,
-      title: title ?? this.title,
-      originCountry: originCountry ?? this.originCountry,
-      originalLanguage: originalLanguage ?? this.originalLanguage,
-      originalTitle: originalTitle ?? this.originalTitle,
-      overview: overview ?? this.overview,
-      popularity: popularity ?? this.popularity,
-      posterPath: posterPath ?? this.posterPath,
-      voteAverage: voteAverage ?? this.voteAverage,
-      voteCount: voteCount ?? this.voteCount,
-    );
-  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -84,7 +52,7 @@ class Tvshow {
 
   factory Tvshow.fromMap(Map<String, dynamic> map) {
     return Tvshow(
-      backdropPath: map['backdrop_path'] ?? '',
+      backdropPath: map['backdrop_path'],
       firstAirDate: DateTime.parse(map['first_air_date']),
       genreIds: List<int>.from(map['genre_ids']),
       id: map['id']?.toInt() ?? 0,
@@ -104,45 +72,6 @@ class Tvshow {
 
   factory Tvshow.fromJson(String source) => Tvshow.fromMap(json.decode(source));
 
-  @override
-  String toString() {
-    return 'Tvshow(backdropPath: $backdropPath, firstAirDate: $firstAirDate, genreIds: $genreIds, id: $id, title: $title, originCountry: $originCountry, originalLanguage: $originalLanguage, originalTitle: $originalTitle, overview: $overview, popularity: $popularity, posterPath: $posterPath, voteAverage: $voteAverage, voteCount: $voteCount)';
-  }
 
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-  
-    return other is Tvshow &&
-      other.backdropPath == backdropPath &&
-      other.firstAirDate == firstAirDate &&
-      listEquals(other.genreIds, genreIds) &&
-      other.id == id &&
-      other.title == title &&
-      listEquals(other.originCountry, originCountry) &&
-      other.originalLanguage == originalLanguage &&
-      other.originalTitle == originalTitle &&
-      other.overview == overview &&
-      other.popularity == popularity &&
-      other.posterPath == posterPath &&
-      other.voteAverage == voteAverage &&
-      other.voteCount == voteCount;
-  }
 
-  @override
-  int get hashCode {
-    return backdropPath.hashCode ^
-      firstAirDate.hashCode ^
-      genreIds.hashCode ^
-      id.hashCode ^
-      title.hashCode ^
-      originCountry.hashCode ^
-      originalLanguage.hashCode ^
-      originalTitle.hashCode ^
-      overview.hashCode ^
-      popularity.hashCode ^
-      posterPath.hashCode ^
-      voteAverage.hashCode ^
-      voteCount.hashCode;
-  }
 }
