@@ -236,7 +236,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen>
                     controller: _controller,
                     children: [
                       // Trailer tab bar
-                      TabTrailer(videos: []),
+                      TabTrailer(url: widget.movie.backdropPath,),
                       TabMoreLikeThis(
                         id: widget.movie.id,
                         function: _videoRepository.getMovieSimilar,

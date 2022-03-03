@@ -37,6 +37,12 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final sizeScreen = MediaQuery.of(context).size;
     return Scaffold(
@@ -282,7 +288,7 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
                       return TabEpisodes(
                           id: widget.tvshow.id, numOfSeason: idSeason);
                     case 1:
-                      return TabTrailer(videos: []);
+                      return TabTrailer(url: widget.tvshow.backdropPath);
                     case 2:
                       return TabMoreLikeThis(
                         id: widget.tvshow.id,

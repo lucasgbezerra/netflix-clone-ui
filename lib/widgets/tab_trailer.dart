@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netflix_clone_ui/core/configurations.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 
 class TabTrailer extends StatelessWidget {
-  final List videos;
-  const TabTrailer({Key? key, required this.videos}) : super(key: key);
+  final String url;
+  const TabTrailer({Key? key, required this.url}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     return Container(
-      height: ((width - 20) * (9 / 16) + 32) * 3,
+      height: ((width - 20) * (9 / 16) + 32) * 1,
       child: ListView.builder(
         padding: EdgeInsets.all(10),
         physics: NeverScrollableScrollPhysics(),
@@ -25,8 +26,12 @@ class TabTrailer extends StatelessWidget {
                   Container(
                     height: (width - 20) * (9 / 16),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.red,
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          '$imageBaseUrl$medImageSize$url',
+                        ),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     // padding: EdgfeInsets.only(bottom: 10),
                   ),
