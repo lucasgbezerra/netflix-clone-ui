@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_clone_ui/screens/root_screen.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 import 'package:netflix_clone_ui/provider/data.dart';
@@ -58,6 +59,7 @@ class ProfileScreen extends StatelessWidget {
                             child: GestureDetector(
                               onTap: () {
                                 // Entrar no perfil
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RootScreen()));
                               },
                               child: Image.asset(
                                 Data.userData[index]['image']!,
