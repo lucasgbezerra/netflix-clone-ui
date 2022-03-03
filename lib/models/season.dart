@@ -51,4 +51,26 @@ class Season {
   String toJson() => json.encode(toMap());
 
   factory Season.fromJson(String source) => Season.fromMap(json.decode(source));
+
+  Season copyWith({
+    int? id,
+    DateTime? airDate,
+    List<Episode>? episodes,
+    String? name,
+    String? overview,
+    int? seasonId,
+    String? posterPath,
+    int? seasonNumber,
+  }) {
+    return Season(
+      id: id ?? this.id,
+      airDate: airDate ?? this.airDate,
+      episodes: episodes ?? this.episodes,
+      name: name ?? this.name,
+      overview: overview ?? this.overview,
+      seasonId: seasonId ?? this.seasonId,
+      posterPath: posterPath ?? this.posterPath,
+      seasonNumber: seasonNumber ?? this.seasonNumber,
+    );
+  }
 }

@@ -19,34 +19,37 @@ class TabMoreLikeThis extends StatelessWidget {
         if (!snapshot.hasData) {
           return LoadingWidget();
         } else {
-          return GridView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              mainAxisSpacing: 5,
-              crossAxisSpacing: 5,
-              mainAxisExtent: ((width - 20) / 3) * 1.5,
+          return Container(
+            height:  ((width - 20) / 3) * 6 + 15,
+            child: GridView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                mainAxisSpacing: 5,
+                crossAxisSpacing: 5,
+                mainAxisExtent: ((width - 20) / 3) * 1.5,
+              ),
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                Map video = snapshot.data![index];
+                return GestureDetector(
+                  onTap: () {
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => TvshowDetailScreen(
+                    //       Data.tvshowsAndTvShowInfo[0],
+                    //     ),
+                    //   ),
+                    // );
+                  },
+                  child: Image.network(
+                    "$imageBaseUrl$minImageSize${video['posterPath']}",
+                    fit: BoxFit.fitHeight,
+                  ),
+                );
+              },
             ),
-            itemCount: snapshot.data!.length,
-            itemBuilder: (context, index) {
-              Map video = snapshot.data![index];
-              return GestureDetector(
-                onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) => TvshowDetailScreen(
-                  //       Data.tvshowsAndTvShowInfo[0],
-                  //     ),
-                  //   ),
-                  // );
-                },
-                child: Image.network(
-                  "$imageBaseUrl$minImageSize${video['posterPath']}",
-                  fit: BoxFit.fitHeight,
-                ),
-              );
-            },
           );
         }
       },

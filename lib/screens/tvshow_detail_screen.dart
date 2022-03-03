@@ -9,6 +9,7 @@ import 'package:netflix_clone_ui/widgets/button_icon_text_vertical.dart';
 import 'package:netflix_clone_ui/widgets/info_video.dart';
 import 'package:netflix_clone_ui/core/configurations.dart';
 import 'package:netflix_clone_ui/repositories/video_repository.dart';
+import 'package:netflix_clone_ui/widgets/loading_widgeet.dart';
 import 'package:netflix_clone_ui/widgets/tab_episodes.dart';
 import 'package:netflix_clone_ui/widgets/tab_more_like_this.dart';
 import 'package:netflix_clone_ui/widgets/tab_trailer.dart';
@@ -24,14 +25,15 @@ class TvshowDetailScreen extends StatefulWidget {
 class _TvshowDetailScreenState extends State<TvshowDetailScreen>
     with SingleTickerProviderStateMixin {
   late final TabController _controller;
+  int selectedTab = 0;
   late final VideoRepository _videoRepository;
   int idSeason = 1;
 
   @override
   void initState() {
-    super.initState();
     _controller = TabController(length: 3, vsync: this);
     _videoRepository = VideoRepository();
+    super.initState();
   }
 
   @override
@@ -222,10 +224,10 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
                 TabBar(
                   onTap: (value) {
                     setState(() {
-                      _controller.index = value;
+                      selectedTab = value;
                     });
                   },
-                  controller: _controller,
+                  // controller: _controller,
                   indicator: UnderlineTabIndicator(
                     borderSide: BorderSide(
                       color: AppColor.primary,
@@ -233,6 +235,7 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
                     ),
                     insets: EdgeInsets.fromLTRB(50.0, 0.0, 50.0, 22.0),
                   ),
+                  controller: _controller,
                   padding: EdgeInsets.zero,
                   indicatorColor: AppColor.primary,
                   physics: NeverScrollableScrollPhysics(),
@@ -251,7 +254,7 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
                     ),
                   ],
                 ),
-                _controller.index == 0
+                selectedTab == 0
                     ? ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
                           primary: AppColor.bottomNavBarBackground,
@@ -259,9 +262,10 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
                         onPressed: () async {
                           final season = await Navigator.push(
                             context,
-                            SeasonsScreen(numberOfSeasons: widget.tvshow.numberOfSeasons),
+                            SeasonsScreen(
+                                numberOfSeasons: widget.tvshow.numberOfSeasons),
                           );
-                          
+
                           setState(() {
                             idSeason = season;
                           });
@@ -272,37 +276,22 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
                         ),
                       )
                     : SizedBox.shrink(),
-                Container(
-                  height: _controller.index == 0
-                      ? ((100 * 9 / 16) + 38) * 8
-                      : _controller.index == 1
-                          ? ((sizeScreen.width - 20) * (9 / 16) + 32) * 3
-                          : ((sizeScreen.width - 20) / 3) * 6 + 15,
-                  padding: EdgeInsets.fromLTRB(5, 5, 5, 0),
-                  child: TabBarView(
-                    physics: NeverScrollableScrollPhysics(),
-                    controller: _controller,
-                    children: [
-                      // EPISODES
-                      // Column(
-                      //   children: [
-
-                      //     TabEpisodes(id: widget.tvshow.id, numOfSeason: idSeason),
-
-                      //   ],
-                      // )
-                      TabEpisodes(id: widget.tvshow.id, numOfSeason: idSeason),
-
-                      // Trailer tab bar
-                      TabTrailer(videos: []),
-                      // More like this tab
-                      TabMoreLikeThis(
+                Builder(builder: (context) {
+                  switch (selectedTab) {
+                    case 0:
+                      return TabEpisodes(
+                          id: widget.tvshow.id, numOfSeason: idSeason);
+                    case 1:
+                      return TabTrailer(videos: []);
+                    case 2:
+                      return TabMoreLikeThis(
                         id: widget.tvshow.id,
                         function: _videoRepository.getTvshowSimilar,
-                      ),
-                    ],
-                  ),
-                ),
+                      );
+                    default:
+                      return LoadingWidget();
+                  }
+                }),
               ],
             ),
           )
