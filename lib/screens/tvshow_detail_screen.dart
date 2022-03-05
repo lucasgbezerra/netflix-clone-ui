@@ -6,6 +6,7 @@ import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 import 'package:netflix_clone_ui/widgets/button_icon_text_horizontal.dart';
 import 'package:netflix_clone_ui/widgets/button_icon_text_vertical.dart';
+import 'package:netflix_clone_ui/widgets/button_play.dart';
 import 'package:netflix_clone_ui/widgets/info_video.dart';
 import 'package:netflix_clone_ui/core/configurations.dart';
 import 'package:netflix_clone_ui/repositories/video_repository.dart';
@@ -89,17 +90,7 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
                 fit: BoxFit.cover,
               ),
             ),
-            child: Align(
-              alignment: Alignment.center,
-              child: InkWell(
-                onTap: () {},
-                child: Icon(
-                  Icons.play_circle_fill_rounded,
-                  size: 50,
-                  color: AppColor.secundary,
-                ),
-              ),
-            ),
+            child: ButtonPlay(height: 50)
           ),
           Expanded(
             child: ListView(

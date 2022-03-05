@@ -72,15 +72,7 @@ class ContinueWatchingVideoList extends StatelessWidget {
                             child: Stack(
                               children: [
                                 ButtonPlay(height: 60),
-                                Center(
-                                  child: Container(
-                                    child: Icon(
-                                      Icons.play_circle_outline,
-                                      color: AppColor.secundary,
-                                      size: 80,
-                                    ),
-                                  ),
-                                ),
+                                
                                 Align(
                                   alignment: Alignment.bottomCenter,
                                   child: Column(

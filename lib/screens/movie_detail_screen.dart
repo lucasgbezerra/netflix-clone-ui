@@ -6,6 +6,7 @@ import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 import 'package:netflix_clone_ui/widgets/button_icon_text_horizontal.dart';
 import 'package:netflix_clone_ui/widgets/button_icon_text_vertical.dart';
+import 'package:netflix_clone_ui/widgets/button_play.dart';
 import 'package:netflix_clone_ui/widgets/info_video.dart';
 import 'package:netflix_clone_ui/core/configurations.dart';
 import 'package:netflix_clone_ui/widgets/tab_more_like_this.dart';
@@ -75,7 +76,9 @@ class _MovieDetailScreenState extends State<MovieDetailScreen>
                   image: NetworkImage(
                       '$imageBaseUrl$medImageSize${widget.movie.backdropPath}'),
                   fit: BoxFit.cover),
+              
             ),
+            child: ButtonPlay(height: 60),
           ),
           Expanded(
             child: ListView(
@@ -95,7 +98,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen>
                       ),
                       InfoVideo(
                         showQuality: true,
-                        ageRating: "TV-MA",
+                        ageRating: widget.movie.ageRating ?? "TV-MA",
                         releaseDate: widget.movie.releaseDate,
                         runtime: widget.movie.runtime,
                       ),
@@ -236,7 +239,9 @@ class _MovieDetailScreenState extends State<MovieDetailScreen>
                     controller: _controller,
                     children: [
                       // Trailer tab bar
-                      TabTrailer(url: widget.movie.backdropPath,),
+                      TabTrailer(
+                        url: widget.movie.backdropPath,
+                      ),
                       TabMoreLikeThis(
                         id: widget.movie.id,
                         function: _videoRepository.getMovieSimilar,

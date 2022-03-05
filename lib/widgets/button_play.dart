@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_clone_ui/themes/app_colors.dart';
 
 class ButtonPlay extends StatelessWidget {
   final double height;
@@ -8,10 +9,23 @@ class ButtonPlay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        height: 60,
+        height: height,
+        width: height,
         decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.black.withOpacity(0.5),
+          borderRadius: BorderRadius.all(Radius.circular(height)),
+          border: Border.all(
+            width: 3,
+            color: Colors.white,
+            style: BorderStyle.solid,
+          ),
+          color: Colors.black.withOpacity(0.5)
+        ),
+        child: Center(
+          child: Icon(
+            Icons.play_arrow,
+            color: AppColor.secundary,
+            size: height/2,
+          ),
         ),
       ),
     );

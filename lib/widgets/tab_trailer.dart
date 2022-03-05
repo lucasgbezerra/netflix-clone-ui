@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:netflix_clone_ui/core/configurations.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
+import 'package:netflix_clone_ui/widgets/button_play.dart';
 
 class TabTrailer extends StatelessWidget {
   final String url;
@@ -21,47 +22,22 @@ class TabTrailer extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Stack(
-                children: [
-                  Container(
-                    height: (width - 20) * (9 / 16),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          '$imageBaseUrl$medImageSize$url',
-                        ),
-                        fit: BoxFit.cover,
-                      ),
+              Container(
+                height: (width - 20) * (9 / 16),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      '$imageBaseUrl$medImageSize$url',
                     ),
-                    // padding: EdgfeInsets.only(bottom: 10),
+                    fit: BoxFit.cover,
                   ),
-                  // Botão play
-                  // TODO: Transformar o botão de play em um widget
-
-                  Positioned.fill(
-                    child: Center(
-                      // alignment: Alignment.center,
-                      child: Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.black.withOpacity(0.5),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned.fill(
-                    child: Center(
-                      // alignment: Alignment.center,
-                      child: Icon(
-                        Icons.play_circle_outline_outlined,
-                        size: 50,
-                        color: AppColor.secundary,
-                      ),
-                    ),
-                  ),
-                ],
+                ),
+                child: ButtonPlay(height: 50),
+                // padding: EdgfeInsets.only(bottom: 10),
               ),
+              // Botão play
+              // TODO: Transformar o botão de play em um widget
+
               Padding(
                 padding: const EdgeInsets.only(top: 5, bottom: 10),
                 child: Text(
