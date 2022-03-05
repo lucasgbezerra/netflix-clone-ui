@@ -29,7 +29,6 @@ class HomeScreen extends StatelessWidget {
             Column(
               children: [
                 MovieBanner(),
-                
                 FutureBuilder<List<Movie>>(
                   future: _videoRepository.getPopularMovies(1),
                   builder: (context, snapshot) {
@@ -45,9 +44,17 @@ class HomeScreen extends StatelessWidget {
                     }
                   },
                 ),
-
-                ContinueWatchingVideoList(movies: Data.imagesVideos),
-               FutureBuilder<List<Tvshow>>(
+                FutureBuilder<List>(
+                  future: _videoRepository.getTrendingVideos(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return const LoadingWidget();
+                    } else {
+                      return ContinueWatchingVideoList(videos: snapshot.data!);
+                    }
+                  },
+                ),
+                FutureBuilder<List<Tvshow>>(
                   future: _videoRepository.getPopularTvShows(1),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
@@ -62,7 +69,7 @@ class HomeScreen extends StatelessWidget {
                     }
                   },
                 ),
-                  FutureBuilder<List<Movie>>(
+                FutureBuilder<List<Movie>>(
                   future: _videoRepository.getPopularMovieByGenre(18),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
@@ -77,7 +84,6 @@ class HomeScreen extends StatelessWidget {
                     }
                   },
                 ),
-
               ],
             ),
             SafeArea(

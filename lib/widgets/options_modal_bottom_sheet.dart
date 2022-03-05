@@ -4,7 +4,12 @@ import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 import 'package:netflix_clone_ui/widgets/option_modal.dart';
 
 class OptionsModalBottomSheet extends StatelessWidget {
-  const OptionsModalBottomSheet({Key? key}) : super(key: key);
+  final int id;
+  final String title;
+  final bool isMovie;
+  const OptionsModalBottomSheet(
+      {Key? key, required this.title, required this.isMovie, required this.id})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +31,7 @@ class OptionsModalBottomSheet extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Title",
+                title,
                 style: AppTextStyles.titleMovieText,
               ),
               GestureDetector(
@@ -46,26 +51,22 @@ class OptionsModalBottomSheet extends StatelessWidget {
               children: [
                 OptionModal(
                     icon: Icons.info_outline,
-                    text: "Episodes & Infos",
-                    onTap: () {
-                    }),
+                    text: isMovie ? "Details & More" : "Episodes & Infos",
+                    onTap: () {}),
                 OptionModal(
                   icon: Icons.download,
-                  text: "Download Episode",
-                  onTap: () {
-                  },
+                  text: isMovie ? "Download" : "Download Episode",
+                  onTap: () {},
                 ),
                 OptionModal(
                   icon: Icons.thumb_up_alt,
                   text: "Rated",
-                  onTap: () {
-                  },
+                  onTap: () {},
                 ),
                 OptionModal(
                   icon: Icons.close,
                   text: "Remove From Row",
-                  onTap: () {
-                  },
+                  onTap: () {},
                 ),
               ],
             ),
