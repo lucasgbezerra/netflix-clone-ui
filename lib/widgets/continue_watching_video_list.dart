@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:netflix_clone_ui/provider/data.dart';
-import 'package:netflix_clone_ui/screens/video_detail_screen.dart';
+import 'package:netflix_clone_ui/models/movie.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
+import 'package:netflix_clone_ui/widgets/button_play.dart';
 import 'package:netflix_clone_ui/widgets/options_modal_bottom_sheet.dart';
+import 'package:netflix_clone_ui/core/configurations.dart';
+import 'package:netflix_clone_ui/widgets/video_info_modal.dart';
 
-class ContinueWatchingMovieList extends StatelessWidget {
-  final List<String> movies;
-  const ContinueWatchingMovieList({Key? key, required this.movies})
+class ContinueWatchingVideoList extends StatelessWidget {
+  final List videos;
+  const ContinueWatchingVideoList({Key? key, required this.videos})
       : super(key: key);
 
   @override
@@ -40,7 +42,18 @@ class ContinueWatchingMovieList extends StatelessWidget {
                     children: [
                       InkWell(
                         onTap: () {
-                          //TODO: Navegar para pagina do filme
+                          showModalBottomSheet(
+                            context: context,
+                            backgroundColor: AppColor.modalBackground,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                            )),
+                            builder: (contex) => VideoInfoModal(
+                                videoId: videos[index].id,
+                                isMovie: videos[index] is Movie),
+                          );
                         },
                         child: Container(
                             height: 210,
@@ -51,39 +64,24 @@ class ContinueWatchingMovieList extends StatelessWidget {
                                 topRight: Radius.circular(10),
                               ),
                               image: DecorationImage(
-                                image: AssetImage(
-                                  movies[index],
+                                image: NetworkImage(
+                                  "$imageBaseUrl$minImageSize${videos[index].posterPath}",
                                 ),
                               ),
                             ),
                             child: Stack(
                               children: [
-                                // TODO: Transformar o botão de play em um widget
-                                Center(
-                                  child: Container(
-                                    height: 60,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.black.withOpacity(0.5),
-                                    ),
-                                  ),
-                                ),
-                                Center(
-                                  child: Container(
-                                    child: Icon(
-                                      Icons.play_circle_outline,
-                                      color: AppColor.secundary,
-                                      size: 80,
-                                    ),
-                                  ),
-                                ),
+                                ButtonPlay(height: 60),
+                                
                                 Align(
                                   alignment: Alignment.bottomCenter,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Text(
-                                        "S1:E4",
+                                        videos[index] is Movie
+                                            ? "2h 30m"
+                                            : "S1:E4",
                                         style: AppTextStyles.movieMinutesText,
                                       ),
                                       SizedBox(
@@ -121,13 +119,17 @@ class ContinueWatchingMovieList extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => VideoDetailScreen(
-                                      Data.moviesAndTvShowInfo[0],
-                                    ),
-                                  ),
+                                showModalBottomSheet(
+                                  context: context,
+                                  backgroundColor: AppColor.modalBackground,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10),
+                                  )),
+                                  builder: (contex) => VideoInfoModal(
+                                      videoId: videos[index].id,
+                                      isMovie: videos[index] is Movie),
                                 );
                               },
                               child: Icon(
@@ -137,7 +139,6 @@ class ContinueWatchingMovieList extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
-                                // TODO: Mostra opções
                                 // Abrir modal com informações do video
                                 showModalBottomSheet(
                                   context: context,
@@ -147,8 +148,11 @@ class ContinueWatchingMovieList extends StatelessWidget {
                                     topLeft: Radius.circular(10),
                                     topRight: Radius.circular(10),
                                   )),
-                                  builder: (contex) =>
-                                      OptionsModalBottomSheet(),
+                                  builder: (contex) => OptionsModalBottomSheet(
+                                    id: videos[index].id,
+                                    title: videos[index].title,
+                                    isMovie: videos[index] is Movie,
+                                  ),
                                 );
                               },
                               child: Icon(
@@ -166,7 +170,7 @@ class ContinueWatchingMovieList extends StatelessWidget {
               separatorBuilder: (context, index) => Container(
                 width: 8,
               ),
-              itemCount: movies.length,
+              itemCount: videos.length,
             ),
           )
         ],

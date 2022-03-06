@@ -5,34 +5,32 @@ import 'package:netflix_clone_ui/screens/movies_screen.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 
-class BottomAppBarHome extends StatefulWidget {
-  const BottomAppBarHome({Key? key}) : super(key: key);
+class BottomAppbarMovies extends StatefulWidget {
+  const BottomAppbarMovies({Key? key}) : super(key: key);
 
   @override
-  State<BottomAppBarHome> createState() => _BottomAppBarHomeState();
+  State<BottomAppbarMovies> createState() => _BottomAppbarMoviesState();
 }
 
-class _BottomAppBarHomeState extends State<BottomAppBarHome> {
+class _BottomAppbarMoviesState extends State<BottomAppbarMovies> {
   int categoryId = -1;
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        TextButton(
-          onPressed: () {},
-          child: Text(
-            "TV Show",
-            style: AppTextStyles.tabBarButtonsText,
-          ),
-        ),
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context)=> MoviesScreen()));
+
+        TextButton.icon(
+          onPressed: () async {
+            // Mover para lista de tipos
           },
-          child: Text(
+          icon: Text(
             "Movies",
             style: AppTextStyles.tabBarButtonsText,
+          ),
+          label: Icon(
+            Icons.arrow_drop_down,
+            color: AppColor.secundary,
           ),
         ),
         TextButton.icon(
@@ -45,7 +43,7 @@ class _BottomAppBarHomeState extends State<BottomAppBarHome> {
             });
           },
           icon: Text(
-            "Categories",
+            "All categories",
             style: AppTextStyles.tabBarButtonsText,
           ),
           label: Icon(

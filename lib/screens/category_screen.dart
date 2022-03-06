@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_clone_ui/models/genre.dart';
 import 'package:netflix_clone_ui/provider/data.dart';
+import 'package:netflix_clone_ui/repositories/video_repository.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
+import 'package:netflix_clone_ui/widgets/loading_widgeet.dart';
 
 class CategoryScreen extends ModalRoute {
-  CategoryScreen({Key? key});
+  int? selectedCategory;
+  CategoryScreen({Key? key, this.selectedCategory});
 
   @override
   Color? get barrierColor => Colors.black.withOpacity(0.95);
@@ -36,31 +40,46 @@ class CategoryScreen extends ModalRoute {
   }
 
   Widget _buildOverlayContent(BuildContext context) {
+    final _videoRepository = VideoRepository();
+
     return Container(
       padding: EdgeInsets.only(top: 80),
       child: Column(
         children: [
           Expanded(
-            child: ListView.separated(
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {},
-                  child: Text(
-                    Data.categories[index],
-                    style: AppTextStyles.categorytitleText,
-                    textAlign: TextAlign.center,
-                  ),
-                );
-              },
-              separatorBuilder: (context, index) => SizedBox(
-                height: 20,
-              ),
-              itemCount: Data.categories.length,
-            ),
+            child: FutureBuilder<List<Genre>>(
+                future: _videoRepository.getGenres(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return LoadingWidget();
+                  } else {
+                    List<Genre> categories = snapshot.data!;
+
+                    categories.insert(0, Genre(id: -1, name: "Home"));
+                    return ListView.separated(
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop(categories[index].id);
+                          },
+                          child: Text(
+                            categories[index].name,
+                            style: selectedCategory == categories[index].id ? AppTextStyles.selectedCategorytitleText :AppTextStyles.categorytitleText,
+                            textAlign: TextAlign.center,
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) => SizedBox(
+                        height: 20,
+                      ),
+                      itemCount: categories.length,
+                    );
+                  }
+                }),
           ),
           IconButton(
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.of(context).pop(selectedCategory);
             },
             icon: Icon(
               Icons.cancel,

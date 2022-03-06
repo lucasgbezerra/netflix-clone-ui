@@ -6,17 +6,17 @@ import 'package:netflix_clone_ui/repositories/video_repository.dart';
 import 'package:netflix_clone_ui/screens/movie_detail_screen.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/widgets/appBar_home.dart';
+import 'package:netflix_clone_ui/widgets/appbar_movies_screen.dart';
 import 'package:netflix_clone_ui/widgets/bottom_appBar_home.dart';
-import 'package:netflix_clone_ui/widgets/button_icon_text_horizontal.dart';
-import 'package:netflix_clone_ui/widgets/button_icon_text_vertical.dart';
-import 'package:netflix_clone_ui/widgets/category_list_banner.dart';
+import 'package:netflix_clone_ui/widgets/bottom_appbar_movies.dart';
+
 import 'package:netflix_clone_ui/widgets/continue_watching_video_list.dart';
 import 'package:netflix_clone_ui/widgets/loading_widgeet.dart';
 import 'package:netflix_clone_ui/widgets/movie_banner.dart';
 import 'package:netflix_clone_ui/widgets/video_list.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class MoviesScreen extends StatelessWidget {
+  const MoviesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -89,8 +89,8 @@ class HomeScreen extends StatelessWidget {
             SafeArea(
               child: Column(
                 children: [
-                  AppBarHome(),
-                  BottomAppBarHome(),
+                  AppbarMoviesScreen(),
+                  BottomAppbarMovies(),
                 ],
               ),
             ),

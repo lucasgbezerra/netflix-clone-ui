@@ -83,7 +83,11 @@ class AppTextStyles {
     fontWeight: FontWeight.w400,
     color: Colors.white,
   );
-
+static final selectedCategorytitleText = GoogleFonts.roboto(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  );
   static final searchLabelText = GoogleFonts.roboto(
     fontSize: 14,
     fontWeight: FontWeight.w400,
