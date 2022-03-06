@@ -36,7 +36,6 @@ class TabTrailer extends StatelessWidget {
                 // padding: EdgfeInsets.only(bottom: 10),
               ),
               // Botão play
-              // TODO: Transformar o botão de play em um widget
 
               Padding(
                 padding: const EdgeInsets.only(top: 5, bottom: 10),

@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
+import 'package:netflix_clone_ui/models/cast.dart';
+
 import 'genre.dart';
 
 class MovieDetail {
@@ -32,6 +34,8 @@ class MovieDetail {
   final double voteAverage;
   final int voteCount;
   final String ageRating;
+  final List<Cast>? cast;
+  final List<Cast>? crew;
   MovieDetail({
     required this.adult,
     required this.backdropPath,
@@ -56,8 +60,10 @@ class MovieDetail {
     required this.voteAverage,
     required this.voteCount,
     required this.ageRating,
+    this.cast,
+    this.crew,
   });
-  
+ 
 
   Map<String, dynamic> toMap() {
     return {
@@ -84,6 +90,8 @@ class MovieDetail {
       'voteAverage': voteAverage,
       'voteCount': voteCount,
       'ageRating': ageRating,
+      'cast': cast?.map((x) => x.toMap()).toList(),
+      'crew': crew?.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -112,10 +120,68 @@ class MovieDetail {
       voteAverage: map['vote_average']?.toDouble() ?? 0.0,
       voteCount: map['vote_count']?.toInt() ?? 0,
       ageRating: map['release_dates'] ?? '',
+      cast: map['cast'] != null ? List<Cast>.from(map['cast']?.map((x) => Cast.fromMap(x))) : null,
+      crew: map['crew'] != null ? List<Cast>.from(map['crew']?.map((x) => Cast.fromMap(x))) : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
   factory MovieDetail.fromJson(String source) => MovieDetail.fromMap(json.decode(source));
+
+  MovieDetail copyWith({
+    bool? adult,
+    String? backdropPath,
+    dynamic? belongsToCollection,
+    int? budget,
+    List<Genre>? genres,
+    String? homepage,
+    int? id,
+    String? imdbId,
+    String? originalLanguage,
+    String? originalTitle,
+    String? overview,
+    double? popularity,
+    String? posterPath,
+    DateTime? releaseDate,
+    int? revenue,
+    int? runtime,
+    String? status,
+    String? tagline,
+    String? title,
+    bool? video,
+    double? voteAverage,
+    int? voteCount,
+    String? ageRating,
+    List<Cast>? cast,
+    List<Cast>? crew,
+  }) {
+    return MovieDetail(
+      adult: adult ?? this.adult,
+      backdropPath: backdropPath ?? this.backdropPath,
+      belongsToCollection: belongsToCollection ?? this.belongsToCollection,
+      budget: budget ?? this.budget,
+      genres: genres ?? this.genres,
+      homepage: homepage ?? this.homepage,
+      id: id ?? this.id,
+      imdbId: imdbId ?? this.imdbId,
+      originalLanguage: originalLanguage ?? this.originalLanguage,
+      originalTitle: originalTitle ?? this.originalTitle,
+      overview: overview ?? this.overview,
+      popularity: popularity ?? this.popularity,
+      posterPath: posterPath ?? this.posterPath,
+      releaseDate: releaseDate ?? this.releaseDate,
+      revenue: revenue ?? this.revenue,
+      runtime: runtime ?? this.runtime,
+      status: status ?? this.status,
+      tagline: tagline ?? this.tagline,
+      title: title ?? this.title,
+      video: video ?? this.video,
+      voteAverage: voteAverage ?? this.voteAverage,
+      voteCount: voteCount ?? this.voteCount,
+      ageRating: ageRating ?? this.ageRating,
+      cast: cast ?? this.cast,
+      crew: crew ?? this.crew,
+    );
+  }
 }

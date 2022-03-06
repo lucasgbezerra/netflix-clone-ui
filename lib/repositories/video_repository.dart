@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 
 import 'package:netflix_clone_ui/core/configurations.dart';
+import 'package:netflix_clone_ui/models/cast.dart';
 import 'package:netflix_clone_ui/models/genre.dart';
 import 'package:netflix_clone_ui/models/movie.dart';
 import 'package:netflix_clone_ui/models/movie_detail.dart';
@@ -66,7 +67,14 @@ class VideoRepository {
   Future<MovieDetail> getMovieDetail(int id) async {
     try {
       final response = await _dio.get('/movie/$id&language=en-US');
-      final movie = MovieDetail.fromMap(response.data);
+      final responseCredits = await _dio.get('/movie/$id/credits?&language=en-US');
+      MovieDetail movie = MovieDetail.fromMap(response.data);
+      
+      final castJson = responseCredits.data['cast'] as List;
+      final crewJson = responseCredits.data['crew'] as List;
+      movie = movie.copyWith(cast: castJson.map((map) => Cast.fromMap(map)).toList());
+      movie = movie.copyWith(crew: crewJson.map((map) => Cast.fromMap(map)).toList()) ;
+      
       return movie;
     } on DioError catch (error) {
       throw Exception(

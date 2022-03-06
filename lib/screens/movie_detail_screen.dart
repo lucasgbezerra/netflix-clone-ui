@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netflix_clone_ui/models/cast.dart';
 import 'package:netflix_clone_ui/models/movie_detail.dart';
 import 'package:netflix_clone_ui/repositories/video_repository.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
@@ -76,7 +77,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen>
                   image: NetworkImage(
                       '$imageBaseUrl$medImageSize${widget.movie.backdropPath}'),
                   fit: BoxFit.cover),
-              
             ),
             child: ButtonPlay(height: 60),
           ),
@@ -136,7 +136,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen>
                             ),
                             children: [
                               TextSpan(
-                                text: "Dave Bautista, Omari Hardwick",
+                                text: _showCast(widget.movie.cast, true),
                                 style: GoogleFonts.roboto(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -145,6 +145,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen>
                               )
                             ],
                           ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       Text.rich(
@@ -157,7 +159,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen>
                           ),
                           children: [
                             TextSpan(
-                              text: "Zack Snyder",
+                              text: _showCast(widget.movie.crew, false),
                               style: GoogleFonts.roboto(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -166,6 +168,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen>
                             )
                           ],
                         ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                       SizedBox(
                         height: 16,
@@ -255,5 +259,17 @@ class _MovieDetailScreenState extends State<MovieDetailScreen>
         ],
       ),
     );
+  }
+
+  String _showCast(List<Cast>? list, bool isCast) {
+    if (list != null) {
+      if (isCast) {
+        return "${list[0].name}, ${list[1].name}, ${list[2].name}";
+      } else {
+        final dir = list.firstWhere((e) => e.job == 'Director');
+        return dir.name;
+      }
+    }
+    return "";
   }
 }

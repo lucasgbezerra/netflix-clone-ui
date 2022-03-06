@@ -60,7 +60,6 @@ class TabEpisodes extends StatelessWidget {
                                     color: Colors.white),
                                 children: [
                                   TextSpan(
-                                    // TODO: Adicionar o runtime do ep
                                     text: "57m",
                                     style: GoogleFonts.roboto(
                                         fontSize: 10,

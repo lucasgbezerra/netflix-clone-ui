@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:netflix_clone_ui/models/movie_detail.dart';
-import 'package:netflix_clone_ui/models/movie.dart';
-import 'package:netflix_clone_ui/models/tvshow_detail.dart';
-import 'package:netflix_clone_ui/provider/data.dart';
 import 'package:netflix_clone_ui/repositories/video_repository.dart';
 import 'package:netflix_clone_ui/screens/movie_detail_screen.dart';
 import 'package:netflix_clone_ui/screens/tvshow_detail_screen.dart';
@@ -69,7 +65,6 @@ class VideoInfoModal extends StatelessWidget {
                                 overflow: TextOverflow.fade,
                               ),
                             ),
-                            // TODO: Obter infos do Movie/TvShow
                             InfoVideo(
                               ageRating: snapshot.data!.ageRating,
                               releaseDate: snapshot.data!.releaseDate,
