@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_clone_ui/models/genre.dart';
-import 'package:netflix_clone_ui/provider/data.dart';
 import 'package:netflix_clone_ui/repositories/video_repository.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
@@ -8,7 +7,8 @@ import 'package:netflix_clone_ui/widgets/loading_widgeet.dart';
 
 class CategoryScreen extends ModalRoute {
   int? selectedCategory;
-  CategoryScreen({Key? key, this.selectedCategory});
+  final String defaultCategory;
+  CategoryScreen({Key? key, required this.defaultCategory, this.selectedCategory});
 
   @override
   Color? get barrierColor => Colors.black.withOpacity(0.95);
@@ -55,12 +55,12 @@ class CategoryScreen extends ModalRoute {
                   } else {
                     List<Genre> categories = snapshot.data!;
 
-                    categories.insert(0, Genre(id: -1, name: "Home"));
+                    categories.insert(0, Genre(id: -1, name: defaultCategory));
                     return ListView.separated(
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
-                            Navigator.of(context).pop(categories[index].id);
+                            Navigator.of(context).pop(categories[index]);
                           },
                           child: Text(
                             categories[index].name,
@@ -79,7 +79,7 @@ class CategoryScreen extends ModalRoute {
           ),
           IconButton(
             onPressed: () {
-              Navigator.of(context).pop(selectedCategory);
+              Navigator.of(context).pop(Genre(id: -1, name: "Home"));
             },
             icon: Icon(
               Icons.cancel,

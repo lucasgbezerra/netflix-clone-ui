@@ -3,8 +3,9 @@ import 'package:netflix_clone_ui/screens/search_screen.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 
-class AppbarMoviesScreen extends StatelessWidget {
-  const AppbarMoviesScreen({Key? key}) : super(key: key);
+class AppbarFilterScreen extends StatelessWidget {
+  final String title;
+  const AppbarFilterScreen({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class AppbarMoviesScreen extends StatelessWidget {
           ),
         ),
         Container(
-          child: Text("Movies", style: AppTextStyles.headerText),
+          child: Text(title, style: AppTextStyles.headerText),
         ),
         const Spacer(),
         IconButton(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:netflix_clone_ui/provider/data.dart';
+import 'package:netflix_clone_ui/models/genre.dart';
 import 'package:netflix_clone_ui/screens/category_screen.dart';
-import 'package:netflix_clone_ui/screens/movies_screen.dart';
+import 'package:netflix_clone_ui/screens/home_screen_with_filter.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
 import 'package:netflix_clone_ui/themes/app_text_styles.dart';
 
@@ -13,14 +13,21 @@ class BottomAppBarHome extends StatefulWidget {
 }
 
 class _BottomAppBarHomeState extends State<BottomAppBarHome> {
-  int categoryId = -1;
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => HomeScreenWithFilter(
+                  isMovie: false,
+                ),
+              ),
+            );
+          },
           child: Text(
             "TV Show",
             style: AppTextStyles.tabBarButtonsText,
@@ -28,7 +35,13 @@ class _BottomAppBarHomeState extends State<BottomAppBarHome> {
         ),
         TextButton(
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context)=> MoviesScreen()));
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => HomeScreenWithFilter(
+                  isMovie: true,
+                ),
+              ),
+            );
           },
           child: Text(
             "Movies",
@@ -37,12 +50,22 @@ class _BottomAppBarHomeState extends State<BottomAppBarHome> {
         ),
         TextButton.icon(
           onPressed: () async {
-            final category = await Navigator.of(context)
-                .push(CategoryScreen(selectedCategory: categoryId));
+            final Genre category = await Navigator.of(context).push(
+                CategoryScreen(defaultCategory: "Home", selectedCategory: -1));
 
-            setState(() {
-              categoryId = category;
-            });
+            if (category.id != -1) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => HomeScreenWithFilter(
+                    category: category,
+                  ),
+                ),
+              );
+            }
+            // setState(() {
+            //   categoryId = category.id;
+            //   categoryName = categoryName;
+            // });
           },
           icon: Text(
             "Categories",
