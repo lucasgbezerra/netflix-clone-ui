@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:netflix_clone_ui/models/cast.dart';
 import 'package:netflix_clone_ui/models/tvshow_detail.dart';
 import 'package:netflix_clone_ui/screens/seasons_screen.dart';
 import 'package:netflix_clone_ui/themes/app_colors.dart';
@@ -81,17 +82,16 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
         children: [
           // Trailer
           Container(
-            height: sizeScreen.width * (9 / 16),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(
-                  '$imageBaseUrl$medImageSize${widget.tvshow.backdropPath}',
+              height: sizeScreen.width * (9 / 16),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(
+                    '$imageBaseUrl$medImageSize${widget.tvshow.backdropPath}',
+                  ),
+                  fit: BoxFit.cover,
                 ),
-                fit: BoxFit.cover,
               ),
-            ),
-            child: ButtonPlay(height: 50)
-          ),
+              child: ButtonPlay(height: 50)),
           Expanded(
             child: ListView(
               shrinkWrap: true,
@@ -148,7 +148,7 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
                             ),
                             children: [
                               TextSpan(
-                                text: "Dave Bautista, Omari Hardwick",
+                                text: _showCast(widget.tvshow.cast, true),
                                 style: GoogleFonts.roboto(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w400,
@@ -161,7 +161,7 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
                       ),
                       Text.rich(
                         TextSpan(
-                          text: "Director: ",
+                          text: "Creator: ",
                           style: GoogleFonts.roboto(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
@@ -169,7 +169,7 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
                           ),
                           children: [
                             TextSpan(
-                              text: "Zack Snyder",
+                              text: _showCast(widget.tvshow.createdBy, false),
                               style: GoogleFonts.roboto(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -295,5 +295,16 @@ class _TvshowDetailScreenState extends State<TvshowDetailScreen>
         ],
       ),
     );
+  }
+
+  String _showCast(List<Cast>? list, bool isCast) {
+    if (list != null) {
+      if (isCast) {
+        return "${list[0].name}, ${list[1].name}, ${list[2].name}";
+      } else {
+        return list[0].name;
+      }
+    }
+    return "";
   }
 }

@@ -2,12 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
+import 'package:netflix_clone_ui/models/cast.dart';
+
 import 'genre.dart';
 
 class TvshowDetail {
   final bool adult;
   final String backdropPath;
-  // final List<CreatedBy> createdBy;
   // final List<int> episodeRunTime;
   final DateTime releaseDate;
   final List<Genre> genres;
@@ -31,6 +32,8 @@ class TvshowDetail {
   final double voteAverage;
   final int voteCount;
   final String ageRating;
+  final List<Cast>? cast;
+  final List<Cast>? createdBy;
   // final TEpisodeToAir lastEpisodeToAir;
   // final TEpisodeToAir nextEpisodeToAir;
   // final List<Network> networks;
@@ -63,61 +66,11 @@ class TvshowDetail {
     required this.voteAverage,
     required this.voteCount,
     required this.ageRating,
+    required this.cast,
+    required this.createdBy,
   });
 
-  TvshowDetail copyWith({
-    bool? adult,
-    String? backdropPath,
-    DateTime? releaseDate,
-    List<Genre>? genres,
-    String? homepage,
-    int? id,
-    bool? inProduction,
-    List<String>? languages,
-    DateTime? lastAirDate,
-    String? name,
-    int? numberOfEpisodes,
-    int? numberOfSeasons,
-    List<String>? originCountry,
-    String? originalLanguage,
-    String? originalTitle,
-    String? overview,
-    double? popularity,
-    String? posterPath,
-    String? status,
-    String? tagline,
-    String? type,
-    double? voteAverage,
-    int? voteCount,
-    String? ageRating,
-  }) {
-    return TvshowDetail(
-      adult: adult ?? this.adult,
-      backdropPath: backdropPath ?? this.backdropPath,
-      releaseDate: releaseDate ?? this.releaseDate,
-      genres: genres ?? this.genres,
-      homepage: homepage ?? this.homepage,
-      id: id ?? this.id,
-      inProduction: inProduction ?? this.inProduction,
-      languages: languages ?? this.languages,
-      lastAirDate: lastAirDate ?? this.lastAirDate,
-      name: name ?? this.name,
-      numberOfEpisodes: numberOfEpisodes ?? this.numberOfEpisodes,
-      numberOfSeasons: numberOfSeasons ?? this.numberOfSeasons,
-      originCountry: originCountry ?? this.originCountry,
-      originalLanguage: originalLanguage ?? this.originalLanguage,
-      originalTitle: originalTitle ?? this.originalTitle,
-      overview: overview ?? this.overview,
-      popularity: popularity ?? this.popularity,
-      posterPath: posterPath ?? this.posterPath,
-      status: status ?? this.status,
-      tagline: tagline ?? this.tagline,
-      type: type ?? this.type,
-      voteAverage: voteAverage ?? this.voteAverage,
-      voteCount: voteCount ?? this.voteCount,
-      ageRating: ageRating ?? this.ageRating,
-    );
-  }
+
 
   Map<String, dynamic> toMap() {
     return {
@@ -145,6 +98,8 @@ class TvshowDetail {
       'voteAverage': voteAverage,
       'voteCount': voteCount,
       'ageRating': ageRating,
+      'cast': cast,
+      'createdBy':createdBy,
     };
   }
 
@@ -174,6 +129,8 @@ class TvshowDetail {
       voteAverage: map['vote_average']?.toDouble() ?? 0.0,
       voteCount: map['vote_count']?.toInt() ?? 0,
       ageRating: map['content_ratings'] ?? '',
+      cast: map['cast'] != null ? List<Cast>.from(map['cast']?.map((x) => Cast.fromMap(x))) : null,
+      createdBy: map['created_by'] != null ? List<Cast>.from(map['created_by']?.map((x) => Cast.fromMap(x))) : null,
     );
   }
 
@@ -185,5 +142,63 @@ class TvshowDetail {
   @override
   String toString() {
     return 'TvshowDetail(adult: $adult, backdropPath: $backdropPath, releaseDate: $releaseDate, genres: $genres, homepage: $homepage, id: $id, inProduction: $inProduction, languages: $languages, lastAirDate: $lastAirDate, name: $name, numberOfEpisodes: $numberOfEpisodes, numberOfSeasons: $numberOfSeasons, originCountry: $originCountry, originalLanguage: $originalLanguage, originalTitle: $originalTitle, overview: $overview, popularity: $popularity, posterPath: $posterPath, status: $status, tagline: $tagline, type: $type, voteAverage: $voteAverage, voteCount: $voteCount, ageRating: $ageRating)';
+  }
+
+  TvshowDetail copyWith({
+    bool? adult,
+    String? backdropPath,
+    DateTime? releaseDate,
+    List<Genre>? genres,
+    String? homepage,
+    int? id,
+    bool? inProduction,
+    List<String>? languages,
+    DateTime? lastAirDate,
+    String? name,
+    int? numberOfEpisodes,
+    int? numberOfSeasons,
+    List<String>? originCountry,
+    String? originalLanguage,
+    String? originalTitle,
+    String? overview,
+    double? popularity,
+    String? posterPath,
+    String? status,
+    String? tagline,
+    String? type,
+    double? voteAverage,
+    int? voteCount,
+    String? ageRating,
+    List<Cast>? cast,
+    List<Cast>? createdBy,
+  }) {
+    return TvshowDetail(
+      adult: adult ?? this.adult,
+      backdropPath: backdropPath ?? this.backdropPath,
+      releaseDate: releaseDate ?? this.releaseDate,
+      genres: genres ?? this.genres,
+      homepage: homepage ?? this.homepage,
+      id: id ?? this.id,
+      inProduction: inProduction ?? this.inProduction,
+      languages: languages ?? this.languages,
+      lastAirDate: lastAirDate ?? this.lastAirDate,
+      name: name ?? this.name,
+      numberOfEpisodes: numberOfEpisodes ?? this.numberOfEpisodes,
+      numberOfSeasons: numberOfSeasons ?? this.numberOfSeasons,
+      originCountry: originCountry ?? this.originCountry,
+      originalLanguage: originalLanguage ?? this.originalLanguage,
+      originalTitle: originalTitle ?? this.originalTitle,
+      overview: overview ?? this.overview,
+      popularity: popularity ?? this.popularity,
+      posterPath: posterPath ?? this.posterPath,
+      status: status ?? this.status,
+      tagline: tagline ?? this.tagline,
+      type: type ?? this.type,
+      voteAverage: voteAverage ?? this.voteAverage,
+      voteCount: voteCount ?? this.voteCount,
+      ageRating: ageRating ?? this.ageRating,
+      cast: cast ?? this.cast,
+      createdBy: createdBy ?? this.createdBy,
+    );
   }
 }

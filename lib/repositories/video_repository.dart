@@ -85,11 +85,20 @@ class VideoRepository {
   Future<TvshowDetail> getTvshowDetail(int id) async {
     try {
       final response = await _dio
-          .get('/tv/$id?language=en-US&append_to_response=content_ratings');
+          .get('/tv/$id?language=en-US&append_to_response=content_ratings,credits');
+      final responseCredits = await _dio.get('/tv/$id/credits?&language=en-US');
+
       final map = response.data['content_ratings']['results']
           .firstWhere((e) => e['iso_3166_1'] == "US");
       response.data['content_ratings'] = map['rating'];
-      final tvshow = TvshowDetail.fromMap(response.data);
+      
+      TvshowDetail tvshow = TvshowDetail.fromMap(response.data);
+
+      final castJson = responseCredits.data['cast'] as List;
+      final createdByJson = response.data['created_by'] as List;
+      tvshow = tvshow.copyWith(cast: castJson.map((map) => Cast.fromMap(map)).toList());
+      tvshow = tvshow.copyWith(createdBy: createdByJson.map((map) => Cast.fromMap(map)).toList()) ;
+
       return tvshow;
     } on DioError catch (error) {
       throw Exception(

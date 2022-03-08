@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:netflix_clone_ui/screens/root_screen.dart';
+import 'package:netflix_clone_ui/screens/profile_screen.dart';
 
 
 void main() {
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       debugShowCheckedModeBanner: false,
-      home: const RootScreen(),
+      home: const ProfileScreen(),
     );
   }
 }

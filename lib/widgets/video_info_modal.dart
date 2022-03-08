@@ -124,11 +124,11 @@ class VideoInfoModal extends StatelessWidget {
                       Column(
                         children: [
                           Icon(
-                            Icons.play_arrow_outlined,
+                            Icons.add,
                             color: AppColor.secundary,
                           ),
                           Text(
-                            "Preview",
+                            "My List",
                             style: AppTextStyles.descriptionMovieText,
                           )
                         ],
