@@ -31,7 +31,12 @@ Netflix UI clone, é um clone da interface, que utiliza da base de dados the mov
 
 ### Mobile
 
-|||||||
+|||||
+|-|-|-|-|
+|![](https://i.imgur.com/RmXvS8U.png)|![](https://i.imgur.com/drVYZyJ.png)|![](https://i.imgur.com/MjCwPKj.png)|![](https://i.imgur.com/gtF158T.png)
+|![](https://i.imgur.com/ICqa88V.png)|![](https://i.imgur.com/pEMEGzo.png)|![](https://i.imgur.com/hsX46C2.png)|![](https://i.imgur.com/0hnDS0B.png)
+|![](https://i.imgur.com/j68eXqS.png)|![](https://i.imgur.com/fx7u4KX.png)|![](https://i.imgur.com/TsIETZF.png)|![](https://i.imgur.com/uEQOWsJ.png)
+|![](https://i.imgur.com/QlSGJiC.png)|![](https://i.imgur.com/u81bQni.png)|
 
 ---
 
@@ -48,10 +53,10 @@ Além disto é bom ter um editor para trabalhar com o código como [VSCode](http
 ```bash
 
 # Clone este repositório
-$ git clone https://github.com/lucasgbezerra/flutter.git
+$ git clone https://github.com/lucasgbezerra/netflix-clone-ui.git
 
 # Acesse a pasta do projeto no terminal/cmd
-$ cd loja_virtual
+$ cd netflix-clone-ui
 
 # Installar as depêndencias
 $ flutter pub get
